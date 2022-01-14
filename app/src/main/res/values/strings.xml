@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">BDT</string>
+    <string name="NotRegistreYet"><u>SignUp</u></string>
+
+    <string-array name="BloodType">
+        <item>Nill</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+
+    <string-array name="Bloods">
+        <item>BloodGroup</item>
+        <item>Red blood cells</item>
+        <item>White blood cells</item>
+    </string-array>
+
+    <string-array name="cities">
+        <item>New York City</item>
+        <item>Los Angeles</item>
+        <item>Chicago</item>
+        <item>Houston</item>
+        <item>Phoenix</item>
+        <item>Philadelphia</item>
+        <item>San Antonio</item>
+        <item>San Diego</item>
+        <item>Dallas</item>
+        <item>San Jose</item>
+        <item>Fairfield</item>
+    </string-array>
+
+
+</resources>
