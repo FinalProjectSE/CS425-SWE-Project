@@ -18,10 +18,11 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Firebase mDatabase, mDatabase3;
+    private Firebase mDatabase;
     EditText MobileNumber, Password;
     Boolean found = false;
     String mobile,PasswordF,recordidUser,city,blood,Fullname;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
