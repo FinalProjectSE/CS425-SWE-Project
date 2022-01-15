@@ -7,18 +7,22 @@ public class Requests {
         private int NumberOfUnites;
         private String HospitalName;
         private String userid;
+        private String date;
 
 
-        public Requests() {
+    public Requests() {
         }
 
-        public Requests(String fuName, String bloodGroup, String mobile, int numberOfUnites, String hospitalName, String userid) {
+        public Requests(String fuName, String bloodGroup, String mobile,
+                        int numberOfUnites, String hospitalName, String userid,
+                        String date) {
             FuName = fuName;
             BloodGroup = bloodGroup;
             Mobile = mobile;
             NumberOfUnites = numberOfUnites;
             HospitalName = hospitalName;
             this.userid = userid;
+            this.date = date;
         }
 
         public String getUserid() {
@@ -68,5 +72,13 @@ public class Requests {
 
         public void setMobile(String mobile) {
             Mobile = mobile;
+        }
+
+         public String getDate() {
+             return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
         }
 }

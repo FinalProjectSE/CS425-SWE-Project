@@ -15,7 +15,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bdt.Classes.RequestBlood;
 import com.example.bdt.Classes.Requests;
 import com.example.bdt.R;
 import com.firebase.client.DataSnapshot;
@@ -269,9 +268,9 @@ public class RequestNotForUserActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(recordID2)) {
 
 
-                    RequestBlood req = new RequestBlood();
+                    Requests req = new Requests();
 
-                    req.setMyMobile(Mobile.getText().toString());
+                    req.setMobile(Mobile.getText().toString());
                     req.setDate(currentDate);
 
                     myRef.child(recordID2).setValue(req);

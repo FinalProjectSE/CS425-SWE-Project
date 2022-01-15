@@ -2,7 +2,6 @@ package com.example.bdt.Request;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bdt.Classes.RequestBlood;
 import com.example.bdt.Classes.Requests;
 import com.example.bdt.R;
 import com.firebase.client.DataSnapshot;
@@ -247,9 +245,9 @@ public class RequestForUserActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(recordid2)) {
 
 
-                    RequestBlood req = new RequestBlood();
+                    Requests req = new Requests();
 
-                    req.setMyMobile(MobileNumber.getText().toString());
+                    req.setMobile(MobileNumber.getText().toString());
                     req.setDate(currentDate);
 
                     myRef.child(recordid2).setValue(req);
