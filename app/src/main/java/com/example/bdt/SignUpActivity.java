@@ -67,7 +67,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-
     public void SaveToFireBase(View view) {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -95,7 +94,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         if (found)
             new AlertDialog.Builder(SignUpActivity.this)
-                    .setTitle("Save a Life Team")
+                    .setTitle("Blood Donation System Team")
                     .setMessage("You already have an account in the system")
                     .setCancelable(false)
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {

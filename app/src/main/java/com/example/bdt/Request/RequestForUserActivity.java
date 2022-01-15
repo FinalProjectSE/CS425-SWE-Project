@@ -135,14 +135,25 @@ public class RequestForUserActivity extends AppCompatActivity {
         if (found) {
             new AlertDialog.Builder(RequestForUserActivity.this)
                     .setTitle("Save a Life Team")
-                    .setMessage("No cant Request a blood right now ")
+                    .setMessage("You can't place a request in this time " +
+                            "/n please try after you previous request done ")
                     .setCancelable(false)
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                         }
                     }).show();
-        }
+        } else
+            new AlertDialog.Builder(RequestForUserActivity.this)
+                    .setTitle("Consent Donation")
+                    .setMessage("Are you sure that you would like to donation")
+                    .setCancelable(false)
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            r();
+                        }
+                    }).show();
     }
 
     public void r() {
@@ -265,6 +276,5 @@ public class RequestForUserActivity extends AppCompatActivity {
             }
         });
     }
-
 
 }
