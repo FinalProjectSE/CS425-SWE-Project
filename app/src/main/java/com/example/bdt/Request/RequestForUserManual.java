@@ -124,6 +124,9 @@ public class RequestForUserManual extends AppCompatActivity {
                         }
                     }).show();
         }
+        else{
+            r();
+        }
 
     }
 

@@ -135,7 +135,7 @@ public class RequestForUserActivity extends AppCompatActivity {
         if (found) {
             new AlertDialog.Builder(RequestForUserActivity.this)
                     .setTitle("Save a Life Team")
-                    .setMessage("لا يمكنك طلب وحدات الدم الان")
+                    .setMessage("No cant Request a blood right now ")
                     .setCancelable(false)
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override

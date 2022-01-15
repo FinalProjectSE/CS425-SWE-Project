@@ -124,7 +124,7 @@ public class RequestNotForUserActivity extends AppCompatActivity {
                 }
 
                 if (!Found) {
-                    Intent x = new Intent(getApplicationContext(), RequestForUserActivity.class);
+                    Intent x = new Intent(getApplicationContext(), RequestForUserManual.class);
                     x.putExtra("Mobilenum",Mobile.getText().toString());
                     startActivity(x);
                 }
