@@ -23,24 +23,24 @@ public class HomePageActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId()==R.id.history){
-//
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==R.id.history){
+
 //            Intent x = new Intent(this,HistoryActivity.class);
 //            x.putExtra("mobile",getIntent().getStringExtra("Mobile"));
 //            startActivity(x);
-//        }
-//        else if (item.getItemId()==R.id.profileUser){
-//            Intent x = new Intent(this,ProfileActivity.class);
-//            x.putExtra("mobile",getIntent().getStringExtra("Mobile"));
-//            x.putExtra("recordId",getIntent().getStringExtra("recordId"));
-//            startActivity(x);
-//        }
-//
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+        }
+        else if (item.getItemId()==R.id.profileUser){
+            Intent x = new Intent(this,ProfileActivity.class);
+            x.putExtra("mobile",getIntent().getStringExtra("Mobile"));
+            x.putExtra("recordId",getIntent().getStringExtra("recordId"));
+            startActivity(x);
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
 
     public void Request(View view)
     {

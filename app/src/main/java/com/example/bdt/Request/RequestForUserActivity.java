@@ -34,7 +34,7 @@ import java.util.Map;
 public class RequestForUserActivity extends AppCompatActivity {
 
     //FireBase declare
-    private Firebase mDatabase, mDatabase2, mDatabase3;
+    private Firebase mDatabase2, mDatabase3;
     DatabaseReference myRef, myRef2;
     ArrayList<String> list;
 
@@ -44,7 +44,6 @@ public class RequestForUserActivity extends AppCompatActivity {
     Spinner Bloods, HospitalName;
     EditText numberOfUnites;
     Button Request;
-    String RecordId;
 
     //for DataReference
     String recordId = "";
@@ -136,7 +135,7 @@ public class RequestForUserActivity extends AppCompatActivity {
             new AlertDialog.Builder(RequestForUserActivity.this)
                     .setTitle("Save a Life Team")
                     .setMessage("You can't place a request in this time " +
-                            "/n please try after you previous request done ")
+                            "/n please try after your previous request is done ")
                     .setCancelable(false)
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
@@ -146,7 +145,7 @@ public class RequestForUserActivity extends AppCompatActivity {
         } else
             new AlertDialog.Builder(RequestForUserActivity.this)
                     .setTitle("Consent Donation")
-                    .setMessage("Are you sure that you would like to donation")
+                    .setMessage("Are you sure that you would like to Request a blood")
                     .setCancelable(false)
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
@@ -157,7 +156,6 @@ public class RequestForUserActivity extends AppCompatActivity {
     }
 
     public void r() {
-
 
         if ((TextUtils.isEmpty(recordid2)) && TextUtils.isEmpty(recordId)) {
             if (Bloods.getSelectedItem().toString().equals("BloodGroup")) {
