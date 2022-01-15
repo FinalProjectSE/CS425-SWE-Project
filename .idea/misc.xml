@@ -3,7 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MIU folder/05-SWD/CS425-SWE-Project/app/src/main/res/layout/activity_home_page.xml" value="0.25" />
+        <entry key="..\:/MIU folder/05-SWD/CS425-SWE-Project/app/src/main/res/layout/activity_request.xml" value="0.25" />
+        <entry key="..\:/MIU folder/05-SWD/CS425-SWE-Project/app/src/main/res/layout/activity_request_for_user.xml" value="0.25" />
+        <entry key="..\:/MIU folder/05-SWD/CS425-SWE-Project/app/src/main/res/layout/activity_request_for_user_manual.xml" value="0.25" />
+        <entry key="..\:/MIU folder/05-SWD/CS425-SWE-Project/app/src/main/res/layout/activity_request_not_for_user.xml" value="0.24010416666666667" />
         <entry key="..\:/MIU folder/05-SWD/CS425-SWE-Project/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
+        <entry key="..\:/MIU folder/05-SWD/CS425-SWE-Project/app/src/main/res/layout/activity_verify_otpactivity.xml" value="0.25" />
+        <entry key="..\:/MIU folder/05-SWD/CS425-SWE-Project/app/src/main/res/menu/my_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/MIU folder/05-SWD/FinalProject2/app/src/main/res/drawable/ic_history_black_24dp.xml" value="0.1" />
         <entry key="..\:/MIU folder/05-SWD/FinalProject2/app/src/main/res/layout/activity_login.xml" value="0.20885416666666667" />
         <entry key="..\:/MIU folder/05-SWD/FinalProject2/app/src/main/res/layout/activity_main.xml" value="0.28577981651376144" />

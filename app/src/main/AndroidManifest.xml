@@ -10,7 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BDT">
         <activity
-            android:name=".VerifyOTPActivity"
+            android:name=".Request.RequestForUserManual"
+            android:exported="false" />
+        <activity
+            android:name=".Request.RequestNotForUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Request.RequestForUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Request.RequestActivity"
             android:exported="false" />
         <activity
             android:name=".HomePageActivity"

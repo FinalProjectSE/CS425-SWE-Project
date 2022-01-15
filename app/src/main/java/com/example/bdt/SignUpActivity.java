@@ -66,11 +66,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    public void SignUp(View view) {
-        Intent x=new Intent(this,VerifyOTPActivity.class);
-        startActivity(x);
-    }
-
 
 
     public void SaveToFireBase(View view) {
