@@ -70,8 +70,8 @@ public class RequestNotForUserActivity extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         currentDate = DateFormat.getDateInstance().format(c.getTime());
 
-        mDatabase2 = new Firebase("https://save-a-life-70ac1.firebaseio.com/HospitalTable/");
-        mDatabase3 = new Firebase("https://save-a-life-70ac1.firebaseio.com/RequestBlood/");
+        mDatabase2 = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/HospitalTable");
+        mDatabase3 = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequestBlood");
 
 
         list = new ArrayList<>();
@@ -100,7 +100,7 @@ public class RequestNotForUserActivity extends AppCompatActivity {
 
     public void Check(View view) {
         Found = false;
-        mDatabase = new Firebase("https://save-a-life-70ac1.firebaseio.com/UserTable/");
+        mDatabase = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/UserTable");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -128,7 +128,6 @@ public class RequestNotForUserActivity extends AppCompatActivity {
                     x.putExtra("Mobilenum",Mobile.getText().toString());
                     startActivity(x);
                 }
-
             }
 
             @Override

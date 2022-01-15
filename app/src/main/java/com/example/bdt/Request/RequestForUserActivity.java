@@ -69,8 +69,8 @@ public class RequestForUserActivity extends AppCompatActivity {
         Request = (Button) findViewById(R.id.RequestUser);
         HospitalName = (Spinner) findViewById(R.id.HospitalNameUser);
 
-        mDatabase2 = new Firebase("https://save-a-life-70ac1.firebaseio.com/HospitalTable/");
-        mDatabase3 = new Firebase("https://save-a-life-70ac1.firebaseio.com/RequestBlood/");
+        mDatabase2 = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/HospitalTable");
+        mDatabase3 = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequestBlood");
 
         list = new ArrayList<>();
         list.add("null");
