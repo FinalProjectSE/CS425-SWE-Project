@@ -99,19 +99,6 @@
 
         >
 
-        <ImageView
-            android:id="@+id/toDonationCenter"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:gravity="center"
-            android:onClick="DonationCenter"
-            android:src="@drawable/hospital"></ImageView>
-
 
         <ImageView
             android:id="@+id/toAboutUs"
@@ -138,27 +125,15 @@
 
 
         <TextView
-            android:id="@+id/centerhome"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:text="ViewInfo"
-            android:layout_marginStart="60dp"
-            android:layout_marginLeft="70dp"
-            android:textSize="20dp"
-            android:textColor="#615a5a"
-            android:textStyle="bold"
-            />
-
-        <TextView
             android:id="@+id/Aboutashome"
             android:layout_width="100dp"
             android:layout_height="30dp"
+            android:layout_marginStart="160dp"
+            android:layout_marginLeft="100dp"
             android:text="About As"
-            android:layout_marginStart="90dp"
-            android:layout_marginLeft="70dp"
-            android:textSize="20dp"
             android:textColor="#615a5a"
-            android:textStyle="bold"/>
+            android:textSize="20dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 

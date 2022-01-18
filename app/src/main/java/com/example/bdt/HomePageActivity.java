@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.bdt.Donation.DonationActivity;
+import com.example.bdt.History.HistoryActivity;
 import com.example.bdt.Request.RequestActivity;
 
 public class HomePageActivity extends AppCompatActivity {
@@ -27,9 +29,9 @@ public class HomePageActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==R.id.history){
 
-//            Intent x = new Intent(this,HistoryActivity.class);
-//            x.putExtra("mobile",getIntent().getStringExtra("Mobile"));
-//            startActivity(x);
+            Intent x = new Intent(this, HistoryActivity.class);
+            x.putExtra("mobile",getIntent().getStringExtra("Mobile"));
+            startActivity(x);
         }
         else if (item.getItemId()==R.id.profileUser){
             Intent x = new Intent(this,ProfileActivity.class);
@@ -50,27 +52,20 @@ public class HomePageActivity extends AppCompatActivity {
         x.putExtra("Mobile",getIntent().getStringExtra("Mobile"));
         startActivity(x);
     }
-//
-//
-//    public void DonationCenter(View view)
-//    {
-//        Intent x = new Intent(this,DonationCenter.class);
-//        startActivity(x);
-//    }
-//
-//
-//    public void Donation(View view)
-//    {
-//        Intent x = new Intent(this,DonationActivity.class);
-//        x.putExtra("Mobile",getIntent().getStringExtra("Mobile"));
-//        x.putExtra("BloodGroup",getIntent().getStringExtra("BloodGroup"));
-//        startActivity(x);
-//    }
-//
-//
-//    public void AboutUs(View view)
-//    {
-//        Intent x=new Intent(this,AboutUsActivity.class);
-//        startActivity(x);
-//    }
+
+
+    public void Donation(View view)
+    {
+        Intent x = new Intent(this, DonationActivity.class);
+        x.putExtra("Mobile",getIntent().getStringExtra("Mobile"));
+        x.putExtra("BloodGroup",getIntent().getStringExtra("BloodGroup"));
+        startActivity(x);
+    }
+
+
+    public void AboutUs(View view)
+    {
+        Intent x=new Intent(this,About_us.class);
+        startActivity(x);
+    }
 }

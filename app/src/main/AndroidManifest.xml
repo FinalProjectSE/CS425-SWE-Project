@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BDT">
         <activity
+            android:name=".Donation.InformationAboutDonationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Donation.DonationActivity"
+            android:exported="false" />
+        <activity
             android:name=".About_us"
             android:exported="false" />
         <activity

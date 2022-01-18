@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="0dp"
+
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/FullnameDon"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="FullName"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/BloodGroupDon"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        android:text="BloodGroup"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/mobileDon"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        android:text="Mobile"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/HospitalDon"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        android:text="Hospital"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/UnitesDon"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        android:text="NumberOfUnits"
+        android:textSize="20sp" />
+
+
+    <Button
+        android:id="@+id/Donations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/UnitesDon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/shape"
+        android:onClick="GoToDonation"
+        android:text="Donation"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp" />
+
+
+</LinearLayout>
