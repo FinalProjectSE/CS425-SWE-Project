@@ -14,7 +14,6 @@
         android:layout_gravity="center"/>
 
 
-
     <EditText
         android:id="@+id/MobileNumber"
         android:layout_width="300dp"
@@ -23,7 +22,8 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Mobile Number"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:minHeight="48dp" />
 
 
     <EditText
@@ -34,7 +34,8 @@
         android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:minHeight="48dp" />
 
     <Button
         android:id="@+id/loginbutton"
@@ -78,7 +79,7 @@
             android:textSize="20dp"
 
 
-            />
+            tools:ignore="TouchTargetSizeCheck" />
 
     </LinearLayout>
 
