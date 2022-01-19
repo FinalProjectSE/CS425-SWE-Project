@@ -3,112 +3,102 @@ package com.example.bdt.Classes;
 import java.util.Date;
 
 public class User {
-    private String FName;
-    private String LName;
-    private String Mobile;
-    private String Password;
-    private String City;
-    private String Nationalatiy;
-    private Date DateOfBarth;
-    private String BloodGroup;
-    private String Address;
-    private String Gender;
+    private String firstName;
+    private String lastName;
+    private String mobile;
+    private String password;
+    private String city;
+    private String nationalatiy;
+    private String bloodGroup;
+    private String address;
+    private String gender;
 
     public User() {
 
     }
 
-    public User(String FName, String LName, String mobile, String password, String city, String nationalatiy, Date dateOfBarth, String bloodGroup, String address, String gender) {
-        this.FName = FName;
-        this.LName = LName;
-        Mobile = mobile;
-        Password = password;
-        City = city;
-        Nationalatiy = nationalatiy;
-        DateOfBarth = dateOfBarth;
-        BloodGroup = bloodGroup;
-        Address = address;
-        Gender = gender;
+    public User(String firstName, String lastName, String mobile, String password, String city, String nationalatiy, Date dateOfBarth, String bloodGroup, String address, String gender) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.mobile = mobile;
+        this.password = password;
+        this.city = city;
+        this.nationalatiy = nationalatiy;
+        this.bloodGroup = bloodGroup;
+        this.address = address;
+        this.gender = gender;
     }
 
-    public String getFName() {
-        return FName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFName(String FName) {
-        this.FName = FName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLName() {
-        return LName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLName(String LName) {
-        this.LName = LName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getMobile() {
-        return Mobile;
+        return mobile;
     }
 
     public void setMobile(String mobile) {
-        Mobile = mobile;
+        this.mobile = mobile;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public String getCity() {
-        return City;
+        return city;
     }
 
     public void setCity(String city) {
-        City = city;
+        this.city = city;
     }
 
     public String getNationalatiy() {
-        return Nationalatiy;
+        return nationalatiy;
     }
 
     public void setNationalatiy(String nationalatiy) {
-        Nationalatiy = nationalatiy;
-    }
-
-    public Date getDateOfBarth() {
-        return DateOfBarth;
-    }
-
-    public void setDateOfBarth(Date dateOfBarth) {
-        DateOfBarth = dateOfBarth;
+        this.nationalatiy = nationalatiy;
     }
 
     public String getBloodGroup() {
-        return BloodGroup;
+        return bloodGroup;
     }
 
     public void setBloodGroup(String bloodGroup) {
-        BloodGroup = bloodGroup;
+        this.bloodGroup = bloodGroup;
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
     public String getGender() {
-        return Gender;
+        return gender;
     }
 
     public void setGender(String gender) {
-        Gender = gender;
+        this.gender = gender;
     }
 
 }

@@ -70,10 +70,10 @@ public class LoginActivity extends AppCompatActivity {
                     mobileNumberFromFirebase = map.get("mobile");
                     passwordFromFirebase = map.get("password");
                     recordUseridFirebase = dataSnapshot1.getKey();
-
                     fullNameFromFirebase = map.get("fname") + " " + map.get("lname");
                     bloodFromFirebase = map.get("bloodGroup");
                     cityFromFirebase = map.get("city");
+
                     informationFounded = hasCorrectCredentials();
                 }
             }
