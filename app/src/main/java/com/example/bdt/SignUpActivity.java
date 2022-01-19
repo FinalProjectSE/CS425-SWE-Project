@@ -90,14 +90,13 @@ public class SignUpActivity extends AppCompatActivity {
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
+                            Intent goToLoginPage = new Intent(SignUpActivity.this,LoginActivity.class);
+                            startActivity(goToLoginPage);
                         }
                     }).show();
         else {
             if (hasAnEmptyFields() && TextUtils.isEmpty(recordID)) {
                 RecordIdEmpty();
-            }
-            else{
-                hasAnEmptyFields();
             }
         }
     }
