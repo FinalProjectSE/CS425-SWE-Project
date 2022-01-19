@@ -12,11 +12,14 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.example.bdt.Classes.RequestBlood;
 import com.example.bdt.Classes.Requests;
+import com.example.bdt.HomePageActivity;
 import com.example.bdt.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,27 +29,21 @@ import java.util.Map;
 
 public class InformationAboutDonationActivity extends AppCompatActivity {
 
-    private Firebase mDatabase,md,md3;
+    private Firebase md,md3;
     DatabaseReference myRef;
 
     String my_num;
     String id;
-    String HosapitalName;
 
     String x;
     int s=0;
 
-
-    double la=0.0;
-    double lo=0.0;
-    String locationCenter="";
-
     String dateinfirebase;
+
     String date;
 
     String RecordID,MyNumber;
     boolean Found = false;
-    boolean FoundDate = false;
 
     CheckBox chb1,chb2,chb3,chb4,chb5,chb6,chb7,chb8,chb9,
             chb10,chb11,chb12,chb13,chb14,chb15;
@@ -75,26 +72,29 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
 
         x=getIntent().getStringExtra("donationRequestId");
         id=x.substring(0,20);
-        HosapitalName = x.substring(21);
 
         MyNumber=getIntent().getStringExtra("num");
         Calendar c = Calendar.getInstance();
+        final int da=c.get(Calendar.DAY_OF_MONTH);
+        final int mon=c.get(Calendar.MONTH)+1;
+        final int yr=c.get(Calendar.YEAR);
+
+        date = String.valueOf(da)+"-"+String.valueOf(mon)+"-"+String.valueOf(yr);
 
 
-        md3=new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/DonationTable");
-        md3.addValueEventListener(new com.firebase.client.ValueEventListener() {
+        md3=new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/DonationTable/");
+        md3.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    Map<String,String> map = dataSnapshot1.getValue(Map.class);
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Map<String, String> map = dataSnapshot1.getValue(Map.class);
                     String rid = map.get("rid");
                     String Number = map.get("myNumber");
+                    dateinfirebase = map.get("date");
                     if (rid.equalsIgnoreCase(id) && Number.equalsIgnoreCase(MyNumber)) {
                         Found = true;
                     }
                 }
-                
             }
 
             @Override
@@ -106,38 +106,20 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
 
 
 
-        md= new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequesterTable/"+x);
-        mDatabase = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/HospitalTable");
+        md= new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequestBlood/"+id);
 
 
         myRef = FirebaseDatabase.getInstance().getReference("DonationTable");
 
         my_num = getIntent().getStringExtra("num");
 
-        mDatabase.addValueEventListener(new com.firebase.client.ValueEventListener() {
-            @Override
-            public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
-                for (com.firebase.client.DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
-                {
-                    HashMap<String,Object> map = dataSnapshot1.getValue(HashMap.class);
-                    if (map.get("hospitalName").toString().equalsIgnoreCase(HosapitalName)) {
-                        locationCenter = (String) map.get("centerLocation");
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
     }
 
     //information for location
     public void ConfirmInfo(View view) {
         if (Found)
             new AlertDialog.Builder(InformationAboutDonationActivity.this)
-                    .setTitle("Blood Donation System team")
+                    .setTitle("BDT Team")
                     .setMessage("You have already donat to this request ")
                     .setCancelable(false)
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -155,13 +137,14 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
     {
 
 
-        md.addValueEventListener(new com.firebase.client.ValueEventListener() {
+        md.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
 
                 HashMap<String, Object> map = dataSnapshot.getValue(HashMap.class);
-                s=(int)(map.get("numberOfUnites"));
+                s = (int)map.get("numberOfUnites");
+
                 s--;
 
             }
@@ -180,14 +163,13 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
         {
 
             new AlertDialog.Builder(InformationAboutDonationActivity.this)
-                    .setTitle("Blood Donation System team")
+                    .setTitle("BDT Team")
                     .setMessage("Sorry, you are not eligible to donate at this time")
                     .setCancelable(false)
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            //Intent x=new Intent(FirstActivity.this,DonationActivity.class);
-                            //startActivity(x);
+
                         }
                     }).show();
         }
@@ -201,22 +183,19 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            //  double latitude=la;
-                            // double longitude=lo;
-                            String link = locationCenter;
-                            // String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                            startActivity(intent);
-
+                            Toast.makeText(getApplicationContext(), "thanks for donating   " , Toast.LENGTH_LONG).show();
+                            Intent newIntent = new Intent(InformationAboutDonationActivity.this, HomePageActivity.class);
+                            newIntent.putExtra("Mobile",MyNumber);
+                            startActivity(newIntent);
                         }
                     }).show();
 
             if (TextUtils.isEmpty(RecordID)){
                 RecordID = myRef.push().getKey();
-                Requests r = new Requests();
+                RequestBlood r = new RequestBlood();
                 r.setDate(date);
-                r.setMobile(my_num);
-                r.setUserid(x);
+                r.setMyMobile(my_num);
+                r.setRid(x);
                 myRef.child(RecordID).setValue(r);
 
                 Toast.makeText(getApplicationContext(), "Save  " + RecordID, Toast.LENGTH_LONG).show();
@@ -227,13 +206,13 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
                 if (!TextUtils.isEmpty(RecordID)) {
 
                     if (!TextUtils.isEmpty(my_num))
-                        myRef.child(RecordID).child("Mobile").setValue(my_num);
+                        myRef.child(RecordID).child("myMobile").setValue(my_num);
 
                     if (!TextUtils.isEmpty(date))
-                        myRef.child(RecordID).child("Date").setValue(date);
+                        myRef.child(RecordID).child("date").setValue(date);
 
                     if (!TextUtils.isEmpty(x))
-                        myRef.child(RecordID).child("Rid").setValue(x);
+                        myRef.child(RecordID).child("rid").setValue(x);
                 }
             }
 

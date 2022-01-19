@@ -47,6 +47,9 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }).show();
         }
+        else{
+            found = !found;
+        }
     }
 
 

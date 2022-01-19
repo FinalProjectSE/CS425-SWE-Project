@@ -49,7 +49,8 @@ public class DonationActivity extends AppCompatActivity {
                     HashMap<String, Object> map = dataSnapshot1.getValue(HashMap.class);
                     String m2 = (String) map.get("mobile");
                     String bg = (String) map.get("bloodGroup");
-                    if(((int)map.get("numberOfUnites"))>0) {
+                    int x = (int)map.get("numberOfUnites");
+                    if(x > 0) {
 
                         if (!(m2.equals(getIntent().getStringExtra("Mobile")))) {
                             switch (b)
