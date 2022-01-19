@@ -34,5 +34,9 @@
         <item>Fairfield</item>
     </string-array>
 
+    <string-array name="HospitalsNames">
+        <item>JCHC</item>
+    </string-array>
+
 
 </resources>

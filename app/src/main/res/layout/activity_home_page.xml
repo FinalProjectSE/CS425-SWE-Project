@@ -1,9 +1,141 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePageActivity">
+    android:layout_gravity="center"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logo"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+
+
+        >
+
+
+        <ImageView
+            android:id="@+id/toReuestPage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="Request"
+            android:src="@drawable/request"></ImageView>
+
+
+        <ImageView
+            android:id="@+id/toDonateBloodPage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="Donation"
+            android:src="@drawable/donate"></ImageView>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        >
+
+
+        <TextView
+            android:id="@+id/reuesthome"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="Request"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="70dp"
+            android:textSize="20dp"
+            android:textColor="#615a5a"
+            android:textStyle="bold"
+
+            />
+
+        <TextView
+            android:id="@+id/donationhome"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="Donation"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="70dp"
+            android:textSize="20dp"
+            android:textColor="#615a5a"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+
+
+        >
+
+
+        <ImageView
+            android:id="@+id/toAboutUs"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="AboutUs"
+            android:src="@drawable/about_us"></ImageView>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        >
+
+
+        <TextView
+            android:id="@+id/Aboutashome"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="160dp"
+            android:layout_marginLeft="100dp"
+            android:text="About As"
+            android:textColor="#615a5a"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

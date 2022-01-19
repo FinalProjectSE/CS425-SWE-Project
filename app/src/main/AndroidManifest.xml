@@ -10,7 +10,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BDT">
         <activity
-            android:name=".VerifyOTPActivity"
+            android:name=".Donation.InformationAboutDonationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Donation.DonationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".About_us"
+            android:exported="false" />
+        <activity
+            android:name=".History.HistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Request.RequestForUserManual"
+            android:exported="false" />
+        <activity
+            android:name=".Request.RequestNotForUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Request.RequestForUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Request.RequestActivity"
             android:exported="false" />
         <activity
             android:name=".HomePageActivity"

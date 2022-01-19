@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/requestCheckBox"
+        android:layout_width="500dp"
+        android:layout_height="80dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+
+        android:text="Request For You ? "
+        android:textSize="22dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/checkRequestbutton"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="300dp"
+        android:background="@drawable/shape"
+        android:onClick="checkRequest"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="Confirm"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp" />
+
+
+</LinearLayout>

@@ -66,12 +66,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    public void SignUp(View view) {
-        Intent x=new Intent(this,VerifyOTPActivity.class);
-        startActivity(x);
-    }
-
-
 
     public void SaveToFireBase(View view) {
         mDatabase.addValueEventListener(new ValueEventListener() {
@@ -100,7 +94,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         if (found)
             new AlertDialog.Builder(SignUpActivity.this)
-                    .setTitle("Save a Life Team")
+                    .setTitle("Blood Donation System Team")
                     .setMessage("You already have an account in the system")
                     .setCancelable(false)
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
