@@ -37,7 +37,7 @@ public class HistoryActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById(R.id.myRecyclerView2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
 
-        my=getIntent().getStringExtra("mobile");
+        my=getIntent().getStringExtra("Mobile");
         mDatabase = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequesterTable");
         mDatabase2 = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/DonationTable");
 
@@ -104,8 +104,10 @@ public class HistoryActivity extends AppCompatActivity {
         if (item.getItemId()==R.id.backToHomePage){
 
             Intent x = new Intent(this, HomePageActivity.class);
-            x.putExtra("mobile",getIntent().getStringExtra("Mobile"));
+            x.putExtra("Mobile",getIntent().getStringExtra("Mobile"));
             x.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
+            x.putExtra("recordId",getIntent().getStringExtra("recordId"));
+            x.putExtra("FullName", getIntent().getStringExtra("FullName"));
             startActivity(x);
         }
 

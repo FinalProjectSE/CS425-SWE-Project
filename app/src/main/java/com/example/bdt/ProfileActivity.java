@@ -27,7 +27,6 @@ public class ProfileActivity extends AppCompatActivity {
     String currentDate;
     String mobile2;
 
-    boolean found=false;
     String RecordIduser;
 
     String password;
@@ -36,7 +35,6 @@ public class ProfileActivity extends AppCompatActivity {
     EditText Password;
     Button signout;
 
-    String MOBILE,PASSWORD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
         currentDate = DateFormat.getDateInstance().format(c.getTime());
 
 
-        mobile2 = getIntent().getStringExtra("mobile");
+        mobile2 = getIntent().getStringExtra("Mobile");
 
 
         if (mobile2 != null) {
@@ -115,8 +113,10 @@ public class ProfileActivity extends AppCompatActivity {
         if (item.getItemId()==R.id.backToHomePage){
 
             Intent x = new Intent(this, HomePageActivity.class);
-            x.putExtra("mobile",getIntent().getStringExtra("Mobile"));
+            x.putExtra("Mobile",getIntent().getStringExtra("Mobile"));
             x.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
+            x.putExtra("recordId",getIntent().getStringExtra("recordId"));
+            x.putExtra("FullName", getIntent().getStringExtra("FullName"));
             startActivity(x);
         }
 

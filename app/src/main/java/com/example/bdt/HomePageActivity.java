@@ -30,19 +30,20 @@ public class HomePageActivity extends AppCompatActivity {
         if (item.getItemId()==R.id.history){
 
             Intent x = new Intent(this, HistoryActivity.class);
-            x.putExtra("mobile",getIntent().getStringExtra("Mobile"));
+            x.putExtra("Mobile",getIntent().getStringExtra("Mobile"));
             x.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
+            x.putExtra("recordId",getIntent().getStringExtra("recordId"));
+            x.putExtra("FullName", getIntent().getStringExtra("FullName"));
             startActivity(x);
         }
         else if (item.getItemId()==R.id.profileUser){
             Intent x = new Intent(this,ProfileActivity.class);
-            x.putExtra("mobile",getIntent().getStringExtra("Mobile"));
+            x.putExtra("Mobile",getIntent().getStringExtra("Mobile"));
             x.putExtra("recordId",getIntent().getStringExtra("recordId"));
             x.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
+            x.putExtra("FullName", getIntent().getStringExtra("FullName"));
             startActivity(x);
         }
-
-
 
         return super.onOptionsItemSelected(item);
     }

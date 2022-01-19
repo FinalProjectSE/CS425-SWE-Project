@@ -1,7 +1,7 @@
 package com.example.bdt.Classes;
 
 public class RequestBlood {
-    static String num;
+
     private String MyMobile;
     private String date;
     private String Rid;
@@ -24,13 +24,7 @@ public class RequestBlood {
         Rid = rid;
     }
 
-    public static String getNum() {
-        return num;
-    }
 
-    public static void setNum(String num) {
-        RequestBlood.num = num;
-    }
 
     public String getMyMobile() {
         return MyMobile;

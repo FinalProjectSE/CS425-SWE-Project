@@ -18,10 +18,12 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Firebase mDatabase;
+    private Firebase userTableDataBase;
     EditText MobileNumber, Password;
-    Boolean found = false;
-    String mobile,PasswordF,recordidUser,city,blood,Fullname;
+    Boolean informationFounded = false;
+    String mobileNumberFromFirebase,
+            passwordFromFirebase,recordUseridFirebase,
+            cityFromFirebase, bloodFromFirebase, fullNameFromFirebase;
 
 
     @Override
@@ -29,14 +31,19 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Firebase.setAndroidContext(this);
-        mDatabase = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/UserTable");
+        userTableDataBase = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/UserTable");
         MobileNumber =(EditText)findViewById(R.id.MobileNumber);
         Password = (EditText)findViewById(R.id.Password);
     }
 
+    public void Signup(View v) {
+        Intent x = new Intent(this,SignUpActivity.class);
+        startActivity(x);
+    }
+
     public void Login(View v) {
-        found = checkYouInfo();
-        if (!found){
+        informationFounded = checkYouInfo();
+        if (!informationFounded){
             new AlertDialog.Builder(LoginActivity.this)
                     .setTitle("Blood Donation Team")
                     .setMessage("Your number dose not exist , Sign up your information")
@@ -47,46 +54,27 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }).show();
         }
-        else{
-            found = !found;
-        }
+
     }
 
 
-    public void Signup(View v)
-    {
-        Intent x = new Intent(this,SignUpActivity.class);
-        startActivity(x);
-    }
+
 
     public boolean checkYouInfo()
     {
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        userTableDataBase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Map<String, String> map = dataSnapshot1.getValue(Map.class);
-                    mobile = map.get("mobile");
-                    PasswordF = map.get("password");
-                    recordidUser = dataSnapshot1.getKey();
+                    mobileNumberFromFirebase = map.get("mobile");
+                    passwordFromFirebase = map.get("password");
+                    recordUseridFirebase = dataSnapshot1.getKey();
 
-                    Fullname = map.get("fname") + " " + map.get("lname");
-                    blood = map.get("bloodGroup");
-                    city = map.get("city");
-
-                    //check for the password and mobileNumber
-
-                    if ((mobile.equals(MobileNumber.getText().toString()))
-                            && PasswordF.equals(Password.getText().toString())) {
-                        found = true;
-                        Intent x = new Intent(getApplicationContext(), HomePageActivity.class);
-                        x.putExtra("FullName", Fullname);
-                        x.putExtra("BloodGroup", blood);
-                        x.putExtra("City", city);
-                        x.putExtra("Mobile", mobile);
-                        x.putExtra("recordId", recordidUser);
-                        startActivity(x);
-                    }
+                    fullNameFromFirebase = map.get("fname") + " " + map.get("lname");
+                    bloodFromFirebase = map.get("bloodGroup");
+                    cityFromFirebase = map.get("city");
+                    informationFounded = hasCorrectCredentials();
                 }
             }
 
@@ -94,6 +82,25 @@ public class LoginActivity extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) {
             }
         });
-        return found;
+        return informationFounded;
+    }
+
+    public boolean hasCorrectCredentials()
+    {
+        if ((mobileNumberFromFirebase.equals(MobileNumber.getText().toString()))
+                && passwordFromFirebase.equals(Password.getText().toString())) {
+
+            Intent x = new Intent(getApplicationContext(), HomePageActivity.class);
+            x.putExtra("FullName", fullNameFromFirebase);
+            x.putExtra("BloodGroup", bloodFromFirebase);
+            x.putExtra("City", cityFromFirebase);
+            x.putExtra("Mobile", mobileNumberFromFirebase);
+            x.putExtra("recordId", recordUseridFirebase);
+            startActivity(x);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

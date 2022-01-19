@@ -54,6 +54,7 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_information_about_donation);
 
         Firebase.setAndroidContext(this);
+
         chb1 = findViewById(R.id.checkBox1);
         chb2 = findViewById(R.id.checkBox2);
         chb3 = findViewById(R.id.checkBox3);
