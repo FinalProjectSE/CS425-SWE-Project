@@ -186,6 +186,7 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "thanks for donating   " , Toast.LENGTH_LONG).show();
                             Intent newIntent = new Intent(InformationAboutDonationActivity.this, HomePageActivity.class);
                             newIntent.putExtra("Mobile",MyNumber);
+                            newIntent.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
                             startActivity(newIntent);
                         }
                     }).show();

@@ -4,9 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.bdt.Classes.Records;
+import com.example.bdt.HomePageActivity;
 import com.example.bdt.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -54,7 +58,7 @@ public class HistoryActivity extends AppCompatActivity {
                     }
                 }
 
-                RVH a = new RVH(getApplicationContext(),records);
+                HistoryRecyclerView a = new HistoryRecyclerView(getApplicationContext(),records);
                 recyclerView.setAdapter(a);
             }
 
@@ -78,7 +82,7 @@ public class HistoryActivity extends AppCompatActivity {
                     }
                 }
 
-                RVH a = new RVH(getApplicationContext(),records);
+                HistoryRecyclerView a = new HistoryRecyclerView(getApplicationContext(),records);
                 recyclerView.setAdapter(a);
             }
 
@@ -88,5 +92,23 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.my_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==R.id.backToHomePage){
+
+            Intent x = new Intent(this, HomePageActivity.class);
+            x.putExtra("mobile",getIntent().getStringExtra("Mobile"));
+            x.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
+            startActivity(x);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

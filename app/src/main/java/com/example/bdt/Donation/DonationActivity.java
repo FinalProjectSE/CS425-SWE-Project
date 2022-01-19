@@ -171,7 +171,7 @@ public class DonationActivity extends AppCompatActivity {
                     }
                 }
 
-                RD a = new RD(getApplicationContext(),m,getIntent().getStringExtra("Mobile"));
+                RecyclerViewAdapter a = new RecyclerViewAdapter(getApplicationContext(),m,getIntent().getStringExtra("Mobile"));
                 recyclerView.setAdapter(a);
 
             }

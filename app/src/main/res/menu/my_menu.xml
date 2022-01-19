@@ -3,14 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/backToHomePage"
+        android:icon="@android:drawable/ic_menu_revert"
+        android:title="History"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/history"
         android:icon="@drawable/history"
         android:title="History"
         app:showAsAction="always" />
+
     <item
         android:id="@+id/profileUser"
         android:icon="@drawable/profile"
         android:title="Profile"
         app:showAsAction="always" />
+
 
 </menu>

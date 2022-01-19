@@ -12,12 +12,12 @@ import com.example.bdt.R;
 
 import java.util.ArrayList;
 
-public class RVH extends RecyclerView.Adapter<RVH.viewitem> {
+public class HistoryRecyclerView extends RecyclerView.Adapter<HistoryRecyclerView.viewitem> {
 
     Context context;
     ArrayList<Records> items;
 
-    public RVH(Context c,ArrayList<Records> item){
+    public HistoryRecyclerView(Context c, ArrayList<Records> item){
         context =c;
         items = item;
     }
@@ -33,15 +33,15 @@ public class RVH extends RecyclerView.Adapter<RVH.viewitem> {
     }
     @NonNull
     @Override
-    public RVH.viewitem onCreateViewHolder(@NonNull ViewGroup Parent, int i) {
+    public HistoryRecyclerView.viewitem onCreateViewHolder(@NonNull ViewGroup Parent, int i) {
         View itemView = LayoutInflater.from(Parent.getContext())
                 .inflate(R.layout.history_row,Parent,false);
 
-        return new RVH.viewitem(itemView);
+        return new HistoryRecyclerView.viewitem(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RVH.viewitem holder, int i) {
+    public void onBindViewHolder(@NonNull HistoryRecyclerView.viewitem holder, int i) {
         holder.Date2.setText(items.get(i).getDate());
     }
 

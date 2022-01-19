@@ -31,14 +31,17 @@ public class HomePageActivity extends AppCompatActivity {
 
             Intent x = new Intent(this, HistoryActivity.class);
             x.putExtra("mobile",getIntent().getStringExtra("Mobile"));
+            x.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
             startActivity(x);
         }
         else if (item.getItemId()==R.id.profileUser){
             Intent x = new Intent(this,ProfileActivity.class);
             x.putExtra("mobile",getIntent().getStringExtra("Mobile"));
             x.putExtra("recordId",getIntent().getStringExtra("recordId"));
+            x.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
             startActivity(x);
         }
+
 
 
         return super.onOptionsItemSelected(item);
@@ -57,7 +60,7 @@ public class HomePageActivity extends AppCompatActivity {
     public void Donation(View view)
     {
         Intent x = new Intent(this, DonationActivity.class);
-        x.putExtra("Mobile",getIntent().getStringExtra("Mobile"));
+        x.putExtra("Mobile", getIntent().getStringExtra("Mobile"));
         x.putExtra("BloodGroup",getIntent().getStringExtra("BloodGroup"));
         startActivity(x);
     }

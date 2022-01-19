@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.bdt.History.HistoryActivity;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -101,6 +104,24 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.my_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==R.id.backToHomePage){
+
+            Intent x = new Intent(this, HomePageActivity.class);
+            x.putExtra("mobile",getIntent().getStringExtra("Mobile"));
+            x.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
+            startActivity(x);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 
 

@@ -17,7 +17,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class RD extends RecyclerView.Adapter<RD.viewitem>{
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.viewitem>{
     TextView FullName,BloodGroup,Hospital,city,mobile,NumOfUnites;
     Button DonationB;
 
@@ -27,7 +27,7 @@ public class RD extends RecyclerView.Adapter<RD.viewitem>{
     String currentDate;
 
     String id;
-    public RD(Context c, ArrayList<Requests> item, String mobile){
+    public RecyclerViewAdapter(Context c, ArrayList<Requests> item, String mobile){
         context =c;
         items = item;
         my_number=mobile;
