@@ -102,7 +102,6 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-
     public boolean hasAnEmptyFields() {
 
         if (TextUtils.isEmpty(firstName.getText().toString())) {
