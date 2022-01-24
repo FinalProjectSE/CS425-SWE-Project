@@ -14,62 +14,58 @@ import com.example.bdt.Request.RequestActivity;
 
 public class HomePageActivity extends AppCompatActivity {
 
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
     }
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.my_menu,menu);
-        return super.onCreateOptionsMenu(menu);
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.my_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()==R.id.history){
 
-            Intent x = new Intent(this, HistoryActivity.class);
-            x.putExtra("Mobile",getIntent().getStringExtra("Mobile"));
-            x.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
-            x.putExtra("recordId",getIntent().getStringExtra("recordId"));
-            x.putExtra("FullName", getIntent().getStringExtra("FullName"));
-            startActivity(x);
+        if (item.getItemId() == R.id.history) {
+            intent = new Intent(this, HistoryActivity.class);
+
+        } else if (item.getItemId() == R.id.profileUser) {
+            intent = new Intent(this, ProfileActivity.class);
         }
-        else if (item.getItemId()==R.id.profileUser){
-            Intent x = new Intent(this,ProfileActivity.class);
-            x.putExtra("Mobile",getIntent().getStringExtra("Mobile"));
-            x.putExtra("recordId",getIntent().getStringExtra("recordId"));
-            x.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
-            x.putExtra("FullName", getIntent().getStringExtra("FullName"));
-            startActivity(x);
-        }
+
+        intent.putExtra("Mobile", getIntent().getStringExtra("Mobile"));
+        intent.putExtra("recordId", getIntent().getStringExtra("recordId"));
+        intent.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
+        intent.putExtra("FullName", getIntent().getStringExtra("FullName"));
+        startActivity(intent);
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void Request(View view)
-    {
-        Intent x=new Intent(this, RequestActivity.class);
-        x.putExtra("FullName", getIntent().getStringExtra("FullName"));
-        x.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
-        x.putExtra("Mobile",getIntent().getStringExtra("Mobile"));
-        startActivity(x);
+    public void Request(View view) {
+        Intent intent = new Intent(this, RequestActivity.class);
+        intent.putExtra("FullName", getIntent().getStringExtra("FullName"));
+        intent.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
+        intent.putExtra("Mobile", getIntent().getStringExtra("Mobile"));
+        startActivity(intent);
     }
 
 
-    public void Donation(View view)
-    {
-        Intent x = new Intent(this, DonationActivity.class);
-        x.putExtra("Mobile", getIntent().getStringExtra("Mobile"));
-        x.putExtra("BloodGroup",getIntent().getStringExtra("BloodGroup"));
-        startActivity(x);
+    public void Donation(View view) {
+        Intent intent = new Intent(this, DonationActivity.class);
+        intent.putExtra("Mobile", getIntent().getStringExtra("Mobile"));
+        intent.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
+        startActivity(intent);
     }
 
 
-    public void AboutUs(View view)
-    {
-        Intent x=new Intent(this,About_us.class);
-        startActivity(x);
+    public void AboutUs(View view) {
+        Intent intent = new Intent(this, About_us.class);
+        startActivity(intent);
     }
+
 }

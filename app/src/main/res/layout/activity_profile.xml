@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/FUnamePr"
+        android:id="@+id/FullNameProfile"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -17,7 +17,7 @@
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/MobilePr"
+        android:id="@+id/MobileNumberProfile"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="2dp"
@@ -26,7 +26,7 @@
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/BloodGroupPr"
+        android:id="@+id/BloodGroupProfile"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
@@ -36,7 +36,7 @@
         />
 
     <TextView
-        android:id="@+id/cityPr"
+        android:id="@+id/cityProfile"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
@@ -46,7 +46,7 @@
         />
 
     <TextView
-        android:id="@+id/nationalityPr"
+        android:id="@+id/nationalityProfile"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
@@ -56,7 +56,7 @@
         />
 
     <EditText
-        android:id="@+id/passwordPr"
+        android:id="@+id/passwordProfile"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"

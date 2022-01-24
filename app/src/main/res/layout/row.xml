@@ -10,7 +10,7 @@
 
 
     <TextView
-        android:id="@+id/FullnameDon"
+        android:id="@+id/FullnameDonation"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
@@ -19,7 +19,7 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/BloodGroupDon"
+        android:id="@+id/BloodGroupDonation"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
@@ -28,7 +28,7 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/mobileDon"
+        android:id="@+id/mobileDonation"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
@@ -37,7 +37,7 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/HospitalDon"
+        android:id="@+id/HospitalDonation"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
@@ -46,7 +46,7 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/UnitesDon"
+        android:id="@+id/UnitesDonation"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
@@ -59,7 +59,7 @@
         android:id="@+id/Donations"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/UnitesDon"
+        android:layout_below="@id/UnitesDonation"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="0dp"
         android:background="@drawable/shape"

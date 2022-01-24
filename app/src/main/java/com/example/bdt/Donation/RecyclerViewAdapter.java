@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.viewitem>{
-    TextView FullName,BloodGroup,Hospital,city,mobile,NumOfUnites;
+    TextView FullName,BloodGroup,Hospital,mobile,NumOfUnites;
     Button DonationB;
 
     Context context;
@@ -34,7 +34,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
 
-    class  viewitem extends RecyclerView.ViewHolder{
+    class viewitem extends RecyclerView.ViewHolder{
 
         public viewitem(View itemView){
             super(itemView);
@@ -42,12 +42,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             Calendar c = Calendar.getInstance();
             currentDate = DateFormat.getDateInstance().format(c.getTime());
 
-            FullName = (TextView)itemView.findViewById(R.id.FullnameDon);
-            BloodGroup = (TextView)itemView.findViewById(R.id.BloodGroupDon);
-            Hospital = (TextView)itemView.findViewById(R.id.HospitalDon);
-            mobile = (TextView)itemView.findViewById(R.id.mobileDon);
+            FullName = (TextView)itemView.findViewById(R.id.FullnameDonation);
+            BloodGroup = (TextView)itemView.findViewById(R.id.BloodGroupDonation);
+            Hospital = (TextView)itemView.findViewById(R.id.HospitalDonation);
+            mobile = (TextView)itemView.findViewById(R.id.mobileDonation);
             DonationB = (Button)itemView.findViewById(R.id.Donations);
-            NumOfUnites = (TextView) itemView.findViewById(R.id.UnitesDon);
+            NumOfUnites = (TextView) itemView.findViewById(R.id.UnitesDonation);
         }
     }
 

@@ -18,11 +18,11 @@ import java.util.HashMap;
 
 public class DonationActivity extends AppCompatActivity {
 
-    private Firebase mDatabase;
+    private Firebase RequestBloodFireBase;
     RecyclerView recyclerView;
-    Requests p1 = new Requests();
-    ArrayList<Requests> m = new ArrayList<>();
-    String b;
+    Requests requests = new Requests();
+    ArrayList<Requests> requestss = new ArrayList<>();
+    String bloodGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,138 +31,129 @@ public class DonationActivity extends AppCompatActivity {
 
         Firebase.setAndroidContext(this);
 
-        recyclerView = (RecyclerView)findViewById(R.id.myRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        b=getIntent().getStringExtra("BloodGroup");
+        recyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        bloodGroup = getIntent().getStringExtra("BloodGroup");
 
-        mDatabase = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequestBlood");
+        RequestBloodFireBase = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequestBlood");
 
-
-        mDatabase.addValueEventListener(new ValueEventListener() {
-
+        RequestBloodFireBase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                     HashMap<String, Object> map = dataSnapshot1.getValue(HashMap.class);
-                    String m2 = (String) map.get("mobile");
-                    String bg = (String) map.get("bloodGroup");
-                    int x = (int)map.get("numberOfUnites");
-                    if(x > 0) {
+                    String MobileFromFireBase = (String) map.get("mobile");
+                    String bloodGroupFromFireBase = (String) map.get("bloodGroup");
+                    int numberOfUnites = (int) map.get("numberOfUnites");
+                    if (numberOfUnites > 0) {
 
-                        if (!(m2.equals(getIntent().getStringExtra("Mobile")))) {
-                            switch (b)
-                            {
+                        if (!(MobileFromFireBase.equals(getIntent().getStringExtra("Mobile")))) {
+                            switch (bloodGroup) {
                                 case "O-":
-                                    p1 = new Requests();
-                                    p1.setFuName((String) map.get("fuName"));
-                                    p1.setMobile((String) map.get("mobile"));
-                                    p1.setHospitalName((String) map.get("hospitalName"));
-                                    p1.setBloodGroup((String) map.get("bloodGroup"));
-                                    p1.setNumberOfUnites((int) map.get("numberOfUnites"));
-                                    p1.setUserid(dataSnapshot1.getKey());
-                                    m.add(p1);
+                                    requests = new Requests();
+                                    requests.setFuName((String) map.get("fuName"));
+                                    requests.setMobile((String) map.get("mobile"));
+                                    requests.setHospitalName((String) map.get("hospitalName"));
+                                    requests.setBloodGroup((String) map.get("bloodGroup"));
+                                    requests.setNumberOfUnites((int) map.get("numberOfUnites"));
+                                    requests.setUserid(dataSnapshot1.getKey());
+                                    requestss.add(requests);
                                     break;
 
                                 case "O+":
-                                    if (bg.equalsIgnoreCase("o+") || bg.equalsIgnoreCase("a+") ||
-                                            bg.equalsIgnoreCase("ab+") || bg.equalsIgnoreCase("b+")){
-                                        p1 = new Requests();
-                                        p1.setFuName((String) map.get("fuName"));
-                                        p1.setMobile((String) map.get("mobile"));
-                                        p1.setHospitalName((String) map.get("hospitalName"));
-                                        p1.setBloodGroup((String) map.get("bloodGroup"));
-                                        p1.setNumberOfUnites((int) map.get("numberOfUnites"));
-                                        p1.setUserid(dataSnapshot1.getKey());
-                                        m.add(p1);
+                                    if (bloodGroupFromFireBase.contains("+")) {
+                                        requests = new Requests();
+                                        requests.setFuName((String) map.get("fuName"));
+                                        requests.setMobile((String) map.get("mobile"));
+                                        requests.setHospitalName((String) map.get("hospitalName"));
+                                        requests.setBloodGroup((String) map.get("bloodGroup"));
+                                        requests.setNumberOfUnites((int) map.get("numberOfUnites"));
+                                        requests.setUserid(dataSnapshot1.getKey());
+                                        requestss.add(requests);
                                     }
                                     break;
 
                                 case "A-":
-                                    if (bg.contains("A")){
-                                        p1 = new Requests();
-                                        p1.setFuName((String) map.get("fuName"));
-                                        p1.setMobile((String) map.get("mobile"));
-                                        p1.setHospitalName((String) map.get("hospitalName"));
-                                        p1.setBloodGroup((String) map.get("bloodGroup"));
-                                        p1.setNumberOfUnites((int) map.get("numberOfUnites"));
-                                        p1.setUserid(dataSnapshot1.getKey());
-                                        m.add(p1);
+                                    if (bloodGroupFromFireBase.contains("A")) {
+                                        requests = new Requests();
+                                        requests.setFuName((String) map.get("fuName"));
+                                        requests.setMobile((String) map.get("mobile"));
+                                        requests.setHospitalName((String) map.get("hospitalName"));
+                                        requests.setBloodGroup((String) map.get("bloodGroup"));
+                                        requests.setNumberOfUnites((int) map.get("numberOfUnites"));
+                                        requests.setUserid(dataSnapshot1.getKey());
+                                        requestss.add(requests);
 
                                     }
                                     break;
 
                                 case "A+":
-                                    if (bg.equalsIgnoreCase("ab+") || bg.equalsIgnoreCase("a+")){
-                                        p1 = new Requests();
-                                        p1.setFuName((String) map.get("fuName"));
-                                        p1.setMobile((String) map.get("mobile"));
-                                        p1.setHospitalName((String) map.get("hospitalName"));
-                                        p1.setBloodGroup((String) map.get("bloodGroup"));
-                                        p1.setNumberOfUnites((int) map.get("numberOfUnites"));
-                                        p1.setUserid(dataSnapshot1.getKey());
-                                        m.add(p1);
+                                    if (bloodGroupFromFireBase.equalsIgnoreCase("ab+") || bloodGroupFromFireBase.equalsIgnoreCase("a+")) {
+                                        requests = new Requests();
+                                        requests.setFuName((String) map.get("fuName"));
+                                        requests.setMobile((String) map.get("mobile"));
+                                        requests.setHospitalName((String) map.get("hospitalName"));
+                                        requests.setBloodGroup((String) map.get("bloodGroup"));
+                                        requests.setNumberOfUnites((int) map.get("numberOfUnites"));
+                                        requests.setUserid(dataSnapshot1.getKey());
+                                        requestss.add(requests);
 
                                     }
                                     break;
 
                                 case "B-":
-                                    if (bg.contains("B")){
-                                        p1 = new Requests();
-                                        p1.setFuName((String) map.get("fuName"));
-                                        p1.setMobile((String) map.get("mobile"));
-                                        p1.setHospitalName((String) map.get("hospitalName"));
-                                        p1.setBloodGroup((String) map.get("bloodGroup"));
-                                        p1.setNumberOfUnites((int) map.get("numberOfUnites"));
-                                        p1.setUserid(dataSnapshot1.getKey());
-                                        m.add(p1);
+                                    if (bloodGroupFromFireBase.contains("B")) {
+                                        requests = new Requests();
+                                        requests.setFuName((String) map.get("fuName"));
+                                        requests.setMobile((String) map.get("mobile"));
+                                        requests.setHospitalName((String) map.get("hospitalName"));
+                                        requests.setBloodGroup((String) map.get("bloodGroup"));
+                                        requests.setNumberOfUnites((int) map.get("numberOfUnites"));
+                                        requests.setUserid(dataSnapshot1.getKey());
+                                        requestss.add(requests);
 
                                     }
                                     break;
 
                                 case "B+":
-                                    if (bg.equalsIgnoreCase("b+") || bg.equalsIgnoreCase("ab+"))
-                                    {
-                                        p1 = new Requests();
-                                        p1.setFuName((String) map.get("fuName"));
-                                        p1.setMobile((String) map.get("mobile"));
-                                        p1.setHospitalName((String) map.get("hospitalName"));
-                                        p1.setBloodGroup((String) map.get("bloodGroup"));
-                                        p1.setNumberOfUnites((int) map.get("numberOfUnites"));
-                                        p1.setUserid(dataSnapshot1.getKey());
-                                        m.add(p1);
+                                    if (bloodGroupFromFireBase.equalsIgnoreCase("b+") || bloodGroupFromFireBase.equalsIgnoreCase("ab+")) {
+                                        requests = new Requests();
+                                        requests.setFuName((String) map.get("fuName"));
+                                        requests.setMobile((String) map.get("mobile"));
+                                        requests.setHospitalName((String) map.get("hospitalName"));
+                                        requests.setBloodGroup((String) map.get("bloodGroup"));
+                                        requests.setNumberOfUnites((int) map.get("numberOfUnites"));
+                                        requests.setUserid(dataSnapshot1.getKey());
+                                        requestss.add(requests);
                                     }
                                     break;
 
                                 case "AB-":
-                                    if (bg.contains("AB")){
-                                        p1 = new Requests();
-                                        p1.setFuName((String) map.get("fuName"));
-                                        p1.setMobile((String) map.get("mobile"));
-                                        p1.setHospitalName((String) map.get("hospitalName"));
-                                        p1.setBloodGroup((String) map.get("bloodGroup"));
-                                        p1.setNumberOfUnites((int) map.get("numberOfUnites"));
-                                        p1.setUserid(dataSnapshot1.getKey());
-                                        m.add(p1);
+                                    if (bloodGroupFromFireBase.contains("AB")) {
+                                        requests = new Requests();
+                                        requests.setFuName((String) map.get("fuName"));
+                                        requests.setMobile((String) map.get("mobile"));
+                                        requests.setHospitalName((String) map.get("hospitalName"));
+                                        requests.setBloodGroup((String) map.get("bloodGroup"));
+                                        requests.setNumberOfUnites((int) map.get("numberOfUnites"));
+                                        requests.setUserid(dataSnapshot1.getKey());
+                                        requestss.add(requests);
                                     }
                                     break;
 
                                 case "AB+":
-                                    if (bg.equalsIgnoreCase("ab+"))
-                                    {
-                                        p1 = new Requests();
-                                        p1.setFuName((String) map.get("fuName"));
-                                        p1.setMobile((String) map.get("mobile"));
-                                        p1.setHospitalName((String) map.get("hospitalName"));
-                                        p1.setBloodGroup((String) map.get("bloodGroup"));
-                                        p1.setNumberOfUnites((int) map.get("numberOfUnites"));
-                                        p1.setUserid(dataSnapshot1.getKey());
-                                        m.add(p1);
+                                    if (bloodGroupFromFireBase.equalsIgnoreCase("ab+")) {
+                                        requests = new Requests();
+                                        requests.setFuName((String) map.get("fuName"));
+                                        requests.setMobile((String) map.get("mobile"));
+                                        requests.setHospitalName((String) map.get("hospitalName"));
+                                        requests.setBloodGroup((String) map.get("bloodGroup"));
+                                        requests.setNumberOfUnites((int) map.get("numberOfUnites"));
+                                        requests.setUserid(dataSnapshot1.getKey());
+                                        requestss.add(requests);
                                     }
                                     break;
-
 
 
                             }
@@ -171,8 +162,8 @@ public class DonationActivity extends AppCompatActivity {
                     }
                 }
 
-                RecyclerViewAdapter a = new RecyclerViewAdapter(getApplicationContext(),m,getIntent().getStringExtra("Mobile"));
-                recyclerView.setAdapter(a);
+                RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getApplicationContext(), requestss, getIntent().getStringExtra("Mobile"));
+                recyclerView.setAdapter(recyclerViewAdapter);
 
             }
 

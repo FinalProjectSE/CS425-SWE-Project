@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText MobileNumber, Password;
     Boolean informationFounded = false;
     String mobileNumberFromFirebase,
-            passwordFromFirebase,recordUseridFirebase,
+            passwordFromFirebase, recordUseridFirebase,
             cityFromFirebase, bloodFromFirebase, fullNameFromFirebase;
 
 
@@ -32,18 +32,18 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Firebase.setAndroidContext(this);
         userTableDataBase = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/UserTable");
-        MobileNumber =(EditText)findViewById(R.id.MobileNumber);
-        Password = (EditText)findViewById(R.id.Password);
+        MobileNumber = (EditText) findViewById(R.id.MobileNumber);
+        Password = (EditText) findViewById(R.id.Password);
     }
 
     public void Signup(View v) {
-        Intent x = new Intent(this,SignUpActivity.class);
+        Intent x = new Intent(this, SignUpActivity.class);
         startActivity(x);
     }
 
     public void Login(View v) {
         informationFounded = checkYouInfo();
-        if (!informationFounded){
+        if (!informationFounded) {
             new AlertDialog.Builder(LoginActivity.this)
                     .setTitle("Blood Donation Team")
                     .setMessage("Your number dose not exist , Sign up your information")
@@ -57,11 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-
-
-
-    public boolean checkYouInfo()
-    {
+    public boolean checkYouInfo() {
         userTableDataBase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -70,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                     mobileNumberFromFirebase = map.get("mobile");
                     passwordFromFirebase = map.get("password");
                     recordUseridFirebase = dataSnapshot1.getKey();
-                    fullNameFromFirebase = map.get("fname") + " " + map.get("lname");
+                    fullNameFromFirebase = map.get("firstName") + " " + map.get("lastName");
                     bloodFromFirebase = map.get("bloodGroup");
                     cityFromFirebase = map.get("city");
 
@@ -85,8 +81,7 @@ public class LoginActivity extends AppCompatActivity {
         return informationFounded;
     }
 
-    public boolean hasCorrectCredentials()
-    {
+    public boolean hasCorrectCredentials() {
         if ((mobileNumberFromFirebase.equals(MobileNumber.getText().toString()))
                 && passwordFromFirebase.equals(Password.getText().toString())) {
 
@@ -97,9 +92,9 @@ public class LoginActivity extends AppCompatActivity {
             x.putExtra("Mobile", mobileNumberFromFirebase);
             x.putExtra("recordId", recordUseridFirebase);
             startActivity(x);
+
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
