@@ -1,84 +1,80 @@
 package com.example.bdt.Classes;
 
 public class Requests {
-        private String FuName;
-        private String BloodGroup;
-        private String Mobile;
-        private int NumberOfUnites;
-        private String HospitalName;
-        private String userid;
-        private String date;
+    private String FullName;
+    private String BloodGroup;
+    private String MobileNumber;
+    private int NumberOfUnites;
+    private String HospitalName;
+    private String userid;
+    private String RequestDate;
 
+    public Requests(String fullName, String bloodGroup, String mobileNumber, int numberOfUnites, String hospitalName, String userid, String requestDate) {
+        FullName = fullName;
+        BloodGroup = bloodGroup;
+        MobileNumber = mobileNumber;
+        NumberOfUnites = numberOfUnites;
+        HospitalName = hospitalName;
+        this.userid = userid;
+        RequestDate = requestDate;
+    }
 
     public Requests() {
-        }
+    }
 
-        public Requests(String fuName, String bloodGroup, String mobile,
-                        int numberOfUnites, String hospitalName, String userid,
-                        String date) {
-            FuName = fuName;
-            BloodGroup = bloodGroup;
-            Mobile = mobile;
-            NumberOfUnites = numberOfUnites;
-            HospitalName = hospitalName;
-            this.userid = userid;
-            this.date = date;
-        }
+    public String getFullName() {
+        return FullName;
+    }
 
-        public String getUserid() {
-            return userid;
-        }
+    public void setFullName(String fullName) {
+        FullName = fullName;
+    }
 
-        public void setUserid(String userid) {
-            this.userid = userid;
-        }
+    public String getBloodGroup() {
+        return BloodGroup;
+    }
 
-        public int getNumberOfUnites() {
-            return NumberOfUnites;
-        }
+    public void setBloodGroup(String bloodGroup) {
+        BloodGroup = bloodGroup;
+    }
 
-        public void setNumberOfUnites(int numberOfUnites) {
-            NumberOfUnites = numberOfUnites;
-        }
+    public String getMobileNumber() {
+        return MobileNumber;
+    }
 
-        public String getHospitalName() {
-            return HospitalName;
-        }
+    public void setMobileNumber(String mobileNumber) {
+        MobileNumber = mobileNumber;
+    }
 
-        public void setHospitalName(String hospitalName) {
-            HospitalName = hospitalName;
-        }
+    public int getNumberOfUnites() {
+        return NumberOfUnites;
+    }
 
-        public String getFuName() {
-            return FuName;
-        }
+    public void setNumberOfUnites(int numberOfUnites) {
+        NumberOfUnites = numberOfUnites;
+    }
 
-        public void setFuName(String fuName) {
-            FuName = fuName;
-        }
+    public String getHospitalName() {
+        return HospitalName;
+    }
 
-        public String getBloodGroup() {
-            return BloodGroup;
-        }
+    public void setHospitalName(String hospitalName) {
+        HospitalName = hospitalName;
+    }
 
-        public void setBloodGroup(String bloodGroup) {
-            BloodGroup = bloodGroup;
-        }
+    public String getUserid() {
+        return userid;
+    }
 
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
 
-        public String getMobile() {
-            return Mobile;
-        }
+    public String getRequestDate() {
+        return RequestDate;
+    }
 
-        public void setMobile(String mobile) {
-            Mobile = mobile;
-        }
-
-         public String getDate() {
-             return date;
-        }
-
-        public void setDate(String date) {
-            this.date = date;
-        }
+    public void setRequestDate(String requestDate) {
+        RequestDate = requestDate;
+    }
 }

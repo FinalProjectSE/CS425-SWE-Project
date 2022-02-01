@@ -26,100 +26,100 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="هل تشعر بالمرض؟" />
+                android:text="Do you feel sick?" />
 
             <CheckBox
                 android:id="@+id/checkBox2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="هل سبق و ان رفضت كمتبرع؟" />
+                android:text="Have you ever been rejected as a donor?" />
 
             <CheckBox
                 android:id="@+id/checkBox3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="هل سبق و ان اصبت باليرقان او التهاب الكبد؟" />
+                android:text="Have you ever had jaundice or hepatitis?" />
 
             <CheckBox
                 android:id="@+id/checkBox4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="هل سبق و ان اصبت بالحمى المالطيه/حمى التيفوئيد؟" />
+                android:text="Have you ever had brucellosis/typhoid fever?" />
 
             <CheckBox
                 android:id="@+id/checkBox5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="هل سبق و ان اصبت بالملاريا؟" />
+                android:text="Have you ever had malaria?" />
 
             <CheckBox
                 android:id="@+id/checkBox6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="هل اصبت باية اعراض جانبية بعد تبرعك بالدم سابقا؟" />
+                android:text="Did you have any side effects after donating blood previously?" />
 
             <CheckBox
                 android:id="@+id/checkBox7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="هل تسافر كثيرا؟" />
+                android:text="Do you travel a lot?" />
 
             <CheckBox
                 android:id="@+id/checkBox8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="هل انت مصاب باي امراض(دم / رئة / قلب / كلى / سكري / ضغط )؟ " />
+                android:text="Do you have any diseases (blood / lung / heart / kidney / diabetes / pressure)?" />
 
             <CheckBox
                 android:id="@+id/checkBox9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="هل تتناول الادوية لاي مرض؟" />
+                android:text="Do you take medication for any disease?" />
 
             <CheckBox
                 android:id="@+id/checkBox10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="هل تشكوا من نوبات اغماء و تشنج؟" />
+                android:text="Do you complain of fainting spells and convulsions?" />
             <CheckBox
                 android:id="@+id/checkBox11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="هل تشكو من حساسية مفرظة؟" />
+                android:text="Do you suffer from hypersensitivity?" />
             <CheckBox
                 android:id="@+id/checkBox12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="هل اخدت اي مطعوم خلال 14يوم الماضيه؟" />
+                android:text="Did you take the vaccine during the past 14 days?" />
             <CheckBox
                 android:id="@+id/checkBox13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="هل عملت وشم/حجامه خلال 12 شهر الماضيه؟" />
+                android:text="Have you done a tattoo/cupping in the last 12 months?" />
             <CheckBox
                 android:id="@+id/checkBox14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="هل لك عمليه جراحيه او نقل دم خلال 12 شهر الماضيه؟" />
+                android:text="Have you had any surgery or blood transfusion in the past 12 months?" />
             <CheckBox
                 android:id="@+id/checkBox15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="هل راجعت طبيب الاسنان خلال 3 شهور الماضيه؟" />
+                android:text="Have you visited the dentist during the past 3 months?" />
 
 
 

@@ -23,10 +23,10 @@ import java.util.Map;
 public class HistoryActivity extends AppCompatActivity {
 
 
-    private Firebase mDatabase,mDatabase2;
+    private Firebase RequesterTableDB, DonationTableDB;
     RecyclerView recyclerView;
-    Records r = new Records();
-    String my;
+    Records records1 = new Records();
+    String mobileNumber;
     ArrayList<Records> records = new ArrayList<>();
 
     @Override
@@ -37,11 +37,11 @@ public class HistoryActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById(R.id.myRecyclerView2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
 
-        my=getIntent().getStringExtra("Mobile");
-        mDatabase = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequesterTable");
-        mDatabase2 = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/DonationTable");
+        mobileNumber =getIntent().getStringExtra("Mobile");
+        RequesterTableDB = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequesterTable");
+        DonationTableDB = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/DonationTable");
 
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        RequesterTableDB.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -51,10 +51,10 @@ public class HistoryActivity extends AppCompatActivity {
 
                     Map<String, String> map = dataSnapshot1.getValue(Map.class);
 
-                    if(my.equals(map.get("Mobile"))) {
-                        r = new Records();
-                        r.setDate(" you Have request a blood in " +map.get("Date"));
-                        records.add(r);
+                    if(mobileNumber.equals(map.get("mobileNumber"))) {
+                        records1 = new Records();
+                        records1.setDate(" you Have request a blood in " +map.get("date"));
+                        records.add(records1);
                     }
                 }
 
@@ -68,22 +68,22 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
-        mDatabase2.addValueEventListener(new ValueEventListener() {
+        DonationTableDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                     Map<String, String> map = dataSnapshot1.getValue(Map.class);
 
-                    if(my.equals(map.get("myMobile"))) {
-                        r = new Records();
-                        r.setDate(" you Have Donate a blood in " + map.get("date"));
-                        records.add(r);
+                    if(mobileNumber.equals(map.get("MyPhoneNumber"))) {
+                        records1 = new Records();
+                        records1.setDate(" you Have Donate a blood in " + map.get("DonationDate"));
+                        records.add(records1);
                     }
                 }
 
-                HistoryRecyclerView a = new HistoryRecyclerView(getApplicationContext(),records);
-                recyclerView.setAdapter(a);
+                HistoryRecyclerView historyRecyclerView = new HistoryRecyclerView(getApplicationContext(),records);
+                recyclerView.setAdapter(historyRecyclerView);
             }
 
             @Override

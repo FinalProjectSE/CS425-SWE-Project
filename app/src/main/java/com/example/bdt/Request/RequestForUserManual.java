@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.bdt.Classes.RequestBlood;
 import com.example.bdt.Classes.Requests;
 import com.example.bdt.R;
 import com.firebase.client.DataSnapshot;
@@ -29,17 +30,17 @@ import java.util.Map;
 
 public class RequestForUserManual extends AppCompatActivity {
 
-    DatabaseReference myRef, myRef2;
+    DatabaseReference RequesterTableRef, RequestBloodRef;
     String recordID = "";
     String recordID2 = "";
-    EditText FName, LName, Mobile, numberOfunits;
+    EditText FirstName, LastName, Mobile, numberOfunits;
     Spinner BloodsType, BloodGroup, HospitalName;
     Button Request;
     ArrayList<String> list;
-    private Firebase mDatabase, mDatabase3;
+    private Firebase HospitalTableDB, RequestBlooddb;
 
     String currentDate;
-    Boolean found = false;
+    Boolean mobileFounded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +48,8 @@ public class RequestForUserManual extends AppCompatActivity {
         setContentView(R.layout.activity_request_for_user_manual);
         Firebase.setAndroidContext(this);
 
-        FName = (EditText) findViewById(R.id.FName);
-        LName = (EditText) findViewById(R.id.LName);
+        FirstName = (EditText) findViewById(R.id.FName);
+        LastName = (EditText) findViewById(R.id.LName);
         Mobile = (EditText) findViewById(R.id.MobileRU);
         BloodsType = (Spinner) findViewById(R.id.Bloods);
         BloodGroup = (Spinner) findViewById(R.id.BloodGroup);
@@ -56,18 +57,18 @@ public class RequestForUserManual extends AppCompatActivity {
         HospitalName = (Spinner) findViewById(R.id.HospitalName);
         numberOfunits = (EditText) findViewById(R.id.NumberOfUnite);
 
-        Mobile.setText(getIntent().getStringExtra("Mobilenum"));
-        mDatabase3 = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequestBlood");
+        Mobile.setText(getIntent().getStringExtra("MobileNumber"));
+        RequestBlooddb = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequestBlood");
 
-        mDatabase3.addValueEventListener(new ValueEventListener() {
+        RequestBlooddb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Map<String, String> map = dataSnapshot1.getValue(Map.class);
 
-                    String m = map.get("mobile");
-                    if (m.equalsIgnoreCase(getIntent().getStringExtra("Mobilenum"))) {
-                        found=true;
+                    String mobileFromDB = map.get("mobileNumber");
+                    if (mobileFromDB.equalsIgnoreCase(getIntent().getStringExtra("MobileNumber"))) {
+                        mobileFounded =true;
                     }
                 }
             }
@@ -82,11 +83,11 @@ public class RequestForUserManual extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         currentDate = DateFormat.getDateInstance().format(c.getTime());
 
-        mDatabase = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/HospitalTable");
+        HospitalTableDB = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/HospitalTable");
 
         list = new ArrayList<>();
         list.add("null");
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        HospitalTableDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 :dataSnapshot.getChildren())
@@ -106,13 +107,11 @@ public class RequestForUserManual extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,list);
         HospitalName.setAdapter(adapter);
 
-
-
     }
 
     public void SaveToFireBase2(View view) {
 
-        if (found) {
+        if (mobileFounded) {
             new AlertDialog.Builder(RequestForUserManual.this)
                     .setTitle("Save a Life Team")
                     .setMessage("No cant Request a blood right now")
@@ -124,126 +123,64 @@ public class RequestForUserManual extends AppCompatActivity {
                     }).show();
         }
         else{
-            r();
+            SaveIntoDB();
         }
 
     }
 
-    public void r() {
+    public void SaveIntoDB() {
 
-        myRef = FirebaseDatabase.getInstance().getReference("RequesterTable");
-        myRef2 = FirebaseDatabase.getInstance().getReference("RequestBlood");
+        RequesterTableRef = FirebaseDatabase.getInstance().getReference("RequesterTable");
+        RequestBloodRef = FirebaseDatabase.getInstance().getReference("RequestBlood");
 
         if ((TextUtils.isEmpty(recordID2)) && TextUtils.isEmpty(recordID)) {
             if (BloodsType.getSelectedItem().toString().equals("BloodGroup")) {
 
                 if (TextUtils.isEmpty(recordID)) {
-                    recordID = myRef2.push().getKey();
+                    recordID = RequestBloodRef.push().getKey();
+                    Requests requests = new Requests();
 
-                    Requests re = new Requests();
-
-                    re.setFuName(FName.getText().toString() + " " + LName.getText().toString());
-                    re.setMobile(Mobile.getText().toString());
-                    re.setBloodGroup(BloodGroup.getSelectedItem().toString());
-                    re.setNumberOfUnites(Integer.parseInt(numberOfunits.getText().toString()));
-                    re.setHospitalName(HospitalName.getSelectedItem().toString());
-                    myRef2.child(recordID).setValue(re);
-
-                    Toast.makeText(this, "Save  " + recordID, Toast.LENGTH_LONG).show();
-
-                } else {
-
-                    if (!TextUtils.isEmpty(recordID)) {
-
-                        if ((!TextUtils.isEmpty(FName.getText().toString()) && (!TextUtils.isEmpty(LName.getText().toString()))))
-                            myRef2.child(recordID).child("fuName").setValue(FName.getText().toString() + " " + LName.getText().toString());
-
-                        if (!TextUtils.isEmpty(Mobile.getText().toString()))
-                            myRef2.child(recordID).child("Mobile").setValue(Mobile.getText().toString());
-
-                        if (!TextUtils.isEmpty(BloodGroup.getSelectedItem().toString()))
-                            myRef2.child(recordID).child("BloodGroup").setValue(BloodGroup.getSelectedItem().toString());
-
-
-                        if (!TextUtils.isEmpty(HospitalName.getSelectedItem().toString()))
-                            myRef2.child(recordID).child("HospitalName").setValue(HospitalName.getSelectedItem().toString());
-
-                        if (!TextUtils.isEmpty(numberOfunits.getText().toString()))
-                            myRef2.child(recordID).child("numberOfUnites").setValue(Integer.parseInt(numberOfunits.getText().toString()));
-
-
-                    }
-
+                    requests.setFullName(FirstName.getText().toString() + " " + LastName.getText().toString());
+                    requests.setMobileNumber(Mobile.getText().toString());
+                    requests.setBloodGroup(BloodGroup.getSelectedItem().toString());
+                    requests.setNumberOfUnites(Integer.parseInt(numberOfunits.getText().toString()));
+                    requests.setHospitalName(HospitalName.getSelectedItem().toString());
+                    RequestBloodRef.child(recordID).setValue(requests);
                 }
 
-            } else {
-                if (TextUtils.isEmpty(recordID)) {
-                    recordID = myRef2.push().getKey();
+                if (!TextUtils.isEmpty(recordID)) {
 
-                    Requests re = new Requests();
-                    re.setFuName(FName.getText().toString() + " " + LName.getText().toString());
-                    re.setMobile(Mobile.getText().toString());
-                    re.setBloodGroup(BloodGroup.getSelectedItem().toString());
-                    re.setHospitalName(HospitalName.getSelectedItem().toString());
-                    re.setNumberOfUnites(Integer.parseInt(numberOfunits.getText().toString()));
-                    myRef2.child(recordID).setValue(re);
+                    if (!TextUtils.isEmpty(FirstName.getText().toString() + " " + LastName.getText().toString()))
+                        RequestBloodRef.child(recordID).child("fullName").setValue(FirstName.getText().toString() + " " + LastName.getText().toString());
 
-                    Toast.makeText(this, "Save  " + recordID, Toast.LENGTH_LONG).show();
+                    if (!TextUtils.isEmpty(Mobile.getText().toString()))
+                        RequestBloodRef.child(recordID).child("mobileNumber").setValue(Mobile.getText().toString());
 
-                } else {
+                    if (!TextUtils.isEmpty(BloodGroup.getSelectedItem().toString()))
+                        RequestBloodRef.child(recordID).child("bloodGroup").setValue(BloodGroup.getSelectedItem().toString());
 
-                    if (!TextUtils.isEmpty(recordID)) {
+                    if (!TextUtils.isEmpty(HospitalName.getSelectedItem().toString()))
+                        RequestBloodRef.child(recordID).child("hospitalName").setValue(HospitalName.getSelectedItem().toString());
 
-                        if ((!TextUtils.isEmpty(FName.getText().toString()) && (!TextUtils.isEmpty(LName.getText().toString()))))
-                            myRef2.child(recordID).child("fuName").setValue(FName.getText().toString() + " " + LName.getText().toString());
-
-                        if (!TextUtils.isEmpty(Mobile.getText().toString()))
-                            myRef2.child(recordID).child("Mobile").setValue(Mobile.getText().toString());
-
-                        if (!TextUtils.isEmpty(BloodsType.getSelectedItem().toString()))
-                            myRef2.child(recordID).child("BloodGroup").setValue(BloodsType.getSelectedItem().toString());
-
-
-                        if (!TextUtils.isEmpty(HospitalName.getSelectedItem().toString()))
-                            myRef2.child(recordID).child("HospitalName").setValue(HospitalName.getSelectedItem().toString());
-
-                        if (!TextUtils.isEmpty(numberOfunits.getText().toString()))
-                            myRef2.child(recordID).child("numberOfUnites").setValue(Integer.parseInt(numberOfunits.getText().toString()));
-
-
-                    }
+                    if (!TextUtils.isEmpty(numberOfunits.getText().toString()))
+                        RequestBloodRef.child(recordID).child("numberOfUnites").setValue(Integer.parseInt(numberOfunits.getText().toString()));
 
                 }
             }
         }
 
-
-        recordID2 = myRef.push().getKey();
-
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        HospitalTableDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if (TextUtils.isEmpty(recordID2)) {
+                    recordID2 = RequesterTableRef.push().getKey();
+                    RequestBlood requestBlood = new RequestBlood();
 
-                    Requests req = new Requests();
+                    requestBlood.setMobileNumber(Mobile.getText().toString());
+                    requestBlood.setDate(currentDate);
 
-                    req.setMobile(Mobile.getText().toString());
-                    req.setDate(currentDate);
-
-                    myRef.child(recordID2).setValue(req);
-                    Toast.makeText(getApplicationContext(), "Save  " + recordID2, Toast.LENGTH_LONG).show();
-
-                } else {
-
-                    if (!TextUtils.isEmpty(recordID2)) {
-
-                        if (!TextUtils.isEmpty(Mobile.getText().toString()))
-                            myRef.child(recordID2).child("Mobile").setValue(Mobile.getText().toString());
-
-                        if (!TextUtils.isEmpty(currentDate))
-                            myRef.child(recordID2).child("Date").setValue(currentDate);
-                    }
+                    RequesterTableRef.child(recordID2).setValue(requestBlood);
                 }
             }
 

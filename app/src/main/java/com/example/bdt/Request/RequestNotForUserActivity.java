@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bdt.Classes.RequestBlood;
 import com.example.bdt.Classes.Requests;
 import com.example.bdt.R;
 import com.firebase.client.DataSnapshot;
@@ -31,19 +32,19 @@ import java.util.Map;
 
 public class RequestNotForUserActivity extends AppCompatActivity {
 
-    private Firebase mDatabase, mDatabase2, mDatabase3;
-    DatabaseReference myRef, myRef2;
+    private Firebase UserTableDB, HospitalTableDB, RequestBloodDB;
+    DatabaseReference RequesterTableReference, RequestBloodReference;
     ArrayList<String> list;
     String recordID = "";
     String recordID2 = "";
 
-    EditText Mobile, numberofUnites;
+    EditText mobileNumber, numberofUnites;
     Button Check, Request;
-    TextView YourName, BloodGroup, YouMobile;
-    Spinner BloodsType, HosName;
-    boolean Found;
+    TextView YourName, BloodGroup, YourMobile;
+    Spinner BloodsType, HospitalName;
+    boolean MobileFounded;
 
-    boolean found = false;
+    boolean MobileFoundForRequest = false;
     String currentDate;
 
 
@@ -55,32 +56,172 @@ public class RequestNotForUserActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
 
 
-        Mobile = (EditText) findViewById(R.id.MobileNR);
+        mobileNumber = (EditText) findViewById(R.id.MobileNR);
         Check = (Button) findViewById(R.id.Check);
         Request = (Button) findViewById(R.id.Request);
         YourName = (TextView) findViewById(R.id.FullName);
         BloodGroup = (TextView) findViewById(R.id.BloodGroup);
-        YouMobile = (TextView) findViewById(R.id.YourMobile);
+        YourMobile = (TextView) findViewById(R.id.YourMobile);
         BloodsType = (Spinner) findViewById(R.id.Bloods);
         numberofUnites = (EditText) findViewById(R.id.NumberOfUnite);
-        HosName = (Spinner) findViewById(R.id.HospitalName);
-
+        HospitalName = (Spinner) findViewById(R.id.HospitalName);
 
         Calendar c = Calendar.getInstance();
         currentDate = DateFormat.getDateInstance().format(c.getTime());
 
-        mDatabase2 = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/HospitalTable");
-        mDatabase3 = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequestBlood");
+        UserTableDB = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/UserTable");
+        HospitalTableDB = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/HospitalTable");
+        RequestBloodDB = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequestBlood");
 
 
         list = new ArrayList<>();
         list.add("null");
-        mDatabase2.addValueEventListener(new ValueEventListener() {
+        HospitalDB();
+
+    }
+
+    public void Check(View view) {
+        MobileFounded = false;
+
+        UserTableDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1 :dataSnapshot.getChildren())
-                {
-                    Map<String ,String> map = dataSnapshot1.getValue(Map.class);
+
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Map<String, String> map = dataSnapshot1.getValue(Map.class);
+                    String mobileFromDB = map.get("mobile");
+
+                    if (mobileFromDB.equals(mobileNumber.getText().toString())) {
+                        String name = map.get("firstName") + " " + map.get("lastName");
+                        String blood = map.get("bloodGroup");
+
+                        YourName.setText(name);
+                        BloodGroup.setText(blood);
+                        YourMobile.setText(mobileNumber.getText().toString());
+                        MobileFounded = true;
+
+                    }
+
+                }
+
+                if (!MobileFounded) {
+                    Intent x = new Intent(getApplicationContext(), RequestForUserManual.class);
+                    x.putExtra("MobileNumber", mobileNumber.getText().toString());
+                    startActivity(x);
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+        RequestBloodDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Map<String, String> map = dataSnapshot1.getValue(Map.class);
+
+                    String mobileFromDB = map.get("mobileNumber");
+                    if (mobileFromDB.equalsIgnoreCase(YourMobile.getText().toString())) {
+                        MobileFoundForRequest = true;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+    }
+
+
+    public void Request(View view) {
+
+        if (MobileFoundForRequest)
+            new AlertDialog.Builder(RequestNotForUserActivity.this)
+                    .setTitle("Save a Life Team")
+                    .setMessage("No cant Request a blood right now")
+                    .setCancelable(false)
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    }).show();
+        else {
+            SaveInformationIntoDB();
+        }
+    }
+
+    public void SaveInformationIntoDB() {
+
+        RequesterTableReference = FirebaseDatabase.getInstance().getReference("RequesterTable");
+        RequestBloodReference = FirebaseDatabase.getInstance().getReference("RequestBlood");
+
+        if ((TextUtils.isEmpty(recordID2)) && TextUtils.isEmpty(recordID)) {
+            if (BloodsType.getSelectedItem().toString().equals("BloodGroup")) {
+
+                if (TextUtils.isEmpty(recordID)) {
+                    recordID = RequestBloodReference.push().getKey();
+                    Requests requests = new Requests();
+                    requests.setFullName(YourName.getText().toString());
+                    requests.setMobileNumber(YourMobile.getText().toString());
+                    requests.setBloodGroup(BloodGroup.getText().toString());
+                    requests.setNumberOfUnites(Integer.parseInt(numberofUnites.getText().toString()));
+                    requests.setHospitalName(HospitalName.getSelectedItem().toString());
+                    RequestBloodReference.child(recordID).setValue(requests);
+                    Toast.makeText(this, "Save  " + recordID, Toast.LENGTH_LONG).show();
+                }
+
+                if (!TextUtils.isEmpty(recordID)) {
+
+                    if (!TextUtils.isEmpty(YourName.getText().toString()))
+                        RequestBloodReference.child(recordID).child("fullName").setValue(YourName.getText().toString());
+
+                    if (!TextUtils.isEmpty(YourMobile.getText().toString()))
+                        RequestBloodReference.child(recordID).child("mobileNumber").setValue(YourMobile.getText().toString());
+
+                    if (!TextUtils.isEmpty(BloodGroup.getText().toString()))
+                        RequestBloodReference.child(recordID).child("bloodGroup").setValue(BloodGroup.getText().toString());
+
+
+                    if (!TextUtils.isEmpty(HospitalName.getSelectedItem().toString()))
+                        RequestBloodReference.child(recordID).child("hospitalName").setValue(HospitalName.getSelectedItem().toString());
+
+                    if (!TextUtils.isEmpty(numberofUnites.getText().toString()))
+                        RequestBloodReference.child(recordID).child("numberOfUnites").setValue(Integer.parseInt(numberofUnites.getText().toString()));
+
+                }
+            }
+        }
+
+        HospitalTableDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (TextUtils.isEmpty(recordID2)) {
+                    recordID2 = RequesterTableReference.push().getKey();
+                    RequestBlood req = new RequestBlood();
+                    req.setMobileNumber(mobileNumber.getText().toString());
+                    req.setDate(currentDate);
+                    RequesterTableReference.child(recordID2).setValue(req);
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+    }
+
+    public void HospitalDB() {
+        HospitalTableDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Map<String, String> map = dataSnapshot1.getValue(Map.class);
                     String hospitalname = map.get("hospitalName");
                     list.add(hospitalname);
                 }
@@ -92,208 +233,9 @@ public class RequestNotForUserActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,list);
-        HosName.setAdapter(adapter);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, list);
+        HospitalName.setAdapter(adapter);
 
     }
 
-    public void Check(View view) {
-        Found = false;
-        mDatabase = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/UserTable");
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    Map<String, String> map = dataSnapshot1.getValue(Map.class);
-                    String mobile = map.get("mobile");
-
-                    if (mobile.equals(Mobile.getText().toString())) {
-                        String name = map.get("fname") + " " + map.get("lname");
-                        String blood = map.get("bloodGroup");
-                        // String city = map.get("city");
-
-                        YourName.setText(name);
-                        BloodGroup.setText(blood);
-                        YouMobile.setText(Mobile.getText().toString());
-                        Found = true;
-
-                    }
-
-                }
-
-                if (!Found) {
-                    Intent x = new Intent(getApplicationContext(), RequestForUserManual.class);
-                    x.putExtra("Mobilenum",Mobile.getText().toString());
-                    startActivity(x);
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-
-        mDatabase3.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    Map<String, String> map = dataSnapshot1.getValue(Map.class);
-
-                    String m = map.get("mobile");
-                    if (m.equalsIgnoreCase(YouMobile.getText().toString())) {
-                        found=true;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-    }
-
-    public void Request(View view) {
-
-        if (found)
-            new AlertDialog.Builder(RequestNotForUserActivity.this)
-                    .setTitle("Save a Life Team")
-                    .setMessage("No cant Request a blood right now")
-                    .setCancelable(false)
-                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                        }
-                    }).show();
-        else {
-            r();
-        }
-    }
-
-    public void r() {
-
-        myRef = FirebaseDatabase.getInstance().getReference("RequesterTable");
-        myRef2 = FirebaseDatabase.getInstance().getReference("RequestBlood");
-
-        if ((TextUtils.isEmpty(recordID2)) && TextUtils.isEmpty(recordID)) {
-            if (BloodsType.getSelectedItem().toString().equals("BloodGroup")) {
-
-                if (TextUtils.isEmpty(recordID)) {
-                    recordID = myRef2.push().getKey();
-
-                    Requests re = new Requests();
-
-                    re.setFuName(YourName.getText().toString());
-                    re.setMobile(YouMobile.getText().toString());
-                    re.setBloodGroup(BloodGroup.getText().toString());
-                    re.setHospitalName(HosName.getSelectedItem().toString());
-                    re.setNumberOfUnites(Integer.parseInt(numberofUnites.getText().toString()));
-                    myRef2.child(recordID).setValue(re);
-
-                    Toast.makeText(this, "Save  " + recordID, Toast.LENGTH_LONG).show();
-
-                } else {
-
-                    if (!TextUtils.isEmpty(recordID)) {
-
-                        if (!TextUtils.isEmpty(YourName.getText().toString()))
-                            myRef2.child(recordID).child("fuName").setValue(YourName.getText().toString());
-
-                        if (!TextUtils.isEmpty(YouMobile.getText().toString()))
-                            myRef2.child(recordID).child("Mobile").setValue(YouMobile.getText().toString());
-
-                        if (!TextUtils.isEmpty(BloodGroup.getText().toString()))
-                            myRef2.child(recordID).child("BloodGroup").setValue(BloodGroup.getText().toString());
-
-
-                        if (!TextUtils.isEmpty(HosName.getSelectedItem().toString()))
-                            myRef2.child(recordID).child("HospitalName").setValue(HosName.getSelectedItem().toString());
-
-                        if (!TextUtils.isEmpty(numberofUnites.getText().toString()))
-                            myRef2.child(recordID).child("numberOfUnites").setValue(Integer.parseInt(numberofUnites.getText().toString()));
-
-                    }
-
-                }
-
-            } else {
-                if (TextUtils.isEmpty(recordID)) {
-                    recordID = myRef2.push().getKey();
-
-                    Requests re = new Requests();
-                    re.setFuName(YourName.getText().toString());
-                    re.setMobile(YouMobile.getText().toString());
-                    re.setBloodGroup(BloodsType.getSelectedItem().toString());
-                    re.setHospitalName(HosName.getSelectedItem().toString());
-                    re.setNumberOfUnites(Integer.parseInt(numberofUnites.getText().toString()));
-                    myRef2.child(recordID).setValue(re);
-
-                    Toast.makeText(this, "Save  " + recordID, Toast.LENGTH_LONG).show();
-
-                } else {
-
-                    if (!TextUtils.isEmpty(recordID)) {
-
-                        if (!TextUtils.isEmpty(YourName.getText().toString()))
-                            myRef2.child(recordID).child("FuName").setValue(YourName.getText().toString());
-
-                        if (!TextUtils.isEmpty(YouMobile.getText().toString()))
-                            myRef2.child(recordID).child("Mobile").setValue(YouMobile.getText().toString());
-
-                        if (!TextUtils.isEmpty(BloodsType.getSelectedItem().toString()))
-                            myRef2.child(recordID).child("BloodGroup").setValue(BloodsType.getSelectedItem().toString());
-
-
-                        if (!TextUtils.isEmpty(HosName.getSelectedItem().toString()))
-                            myRef2.child(recordID).child("HospitalName").setValue(HosName.getSelectedItem().toString());
-
-                        if (!TextUtils.isEmpty(numberofUnites.getText().toString()))
-                            myRef2.child(recordID).child("numberOfUnites").setValue(Integer.parseInt(numberofUnites.getText().toString()));
-                    }
-
-                }
-            }
-        }
-
-
-        recordID2 = myRef.push().getKey();
-
-        mDatabase2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                if (TextUtils.isEmpty(recordID2)) {
-
-
-                    Requests req = new Requests();
-
-                    req.setMobile(Mobile.getText().toString());
-                    req.setDate(currentDate);
-
-                    myRef.child(recordID2).setValue(req);
-                    Toast.makeText(getApplicationContext(), "Save  " + recordID2, Toast.LENGTH_LONG).show();
-
-                } else {
-
-                    if (!TextUtils.isEmpty(recordID2)) {
-
-                        if (!TextUtils.isEmpty(Mobile.getText().toString()))
-                            myRef.child(recordID2).child("Mobile").setValue(Mobile.getText().toString());
-
-                        if (!TextUtils.isEmpty(currentDate))
-                            myRef.child(recordID2).child("Date").setValue(currentDate);
-                    }
-                }
-            }
-
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-    }
 }

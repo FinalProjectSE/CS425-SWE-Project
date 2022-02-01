@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.example.bdt.Classes.RequestBlood;
-import com.example.bdt.Classes.Requests;
 import com.example.bdt.HomePageActivity;
 import com.example.bdt.R;
 import com.firebase.client.DataSnapshot;
@@ -29,21 +27,20 @@ import java.util.Map;
 
 public class InformationAboutDonationActivity extends AppCompatActivity {
 
-    private Firebase md,md3;
-    DatabaseReference myRef;
+    private Firebase RequestBloodDB, DonationTableDB;
+    DatabaseReference DonationTableRef;
 
-    String my_num;
-    String id;
+    String phoneNumber;
+    String DonationId;
 
-    String x;
+    String DonationRequestId;
     int s=0;
 
     String dateinfirebase;
-
     String date;
 
     String RecordID,MyNumber;
-    boolean Found = false;
+    boolean recordFounded = false;
 
     CheckBox chb1,chb2,chb3,chb4,chb5,chb6,chb7,chb8,chb9,
             chb10,chb11,chb12,chb13,chb14,chb15;
@@ -71,29 +68,29 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
         chb14 = findViewById(R.id.checkBox14);
         chb15 = findViewById(R.id.checkBox15);
 
-        x=getIntent().getStringExtra("donationRequestId");
-        id=x.substring(0,20);
+        DonationRequestId =getIntent().getStringExtra("donationRequestId");
+        DonationId = DonationRequestId.substring(0,20);
 
-        MyNumber=getIntent().getStringExtra("num");
+        MyNumber=getIntent().getStringExtra("number");
         Calendar c = Calendar.getInstance();
+
         final int da=c.get(Calendar.DAY_OF_MONTH);
         final int mon=c.get(Calendar.MONTH)+1;
         final int yr=c.get(Calendar.YEAR);
 
         date = String.valueOf(da)+"-"+String.valueOf(mon)+"-"+String.valueOf(yr);
 
-
-        md3=new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/DonationTable/");
-        md3.addValueEventListener(new ValueEventListener() {
+        DonationTableDB =new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/DonationTable");
+        DonationTableDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Map<String, String> map = dataSnapshot1.getValue(Map.class);
-                    String rid = map.get("rid");
-                    String Number = map.get("myNumber");
-                    dateinfirebase = map.get("date");
-                    if (rid.equalsIgnoreCase(id) && Number.equalsIgnoreCase(MyNumber)) {
-                        Found = true;
+                    String recordId = map.get("RecordID");
+                    String Number = map.get("MyPhoneNumber");
+                    dateinfirebase = map.get("DonationDate");
+                    if (recordId.equalsIgnoreCase(DonationId) && Number.equalsIgnoreCase(MyNumber)) {
+                        recordFounded = true;
                     }
                 }
             }
@@ -104,21 +101,15 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-        md= new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequestBlood/"+id);
-
-
-        myRef = FirebaseDatabase.getInstance().getReference("DonationTable");
-
-        my_num = getIntent().getStringExtra("num");
+        RequestBloodDB = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequestBlood/"+ DonationId);
+        DonationTableRef = FirebaseDatabase.getInstance().getReference("DonationTable");
+        phoneNumber = getIntent().getStringExtra("number");
 
     }
 
     //information for location
     public void ConfirmInfo(View view) {
-        if (Found)
+        if (recordFounded)
             new AlertDialog.Builder(InformationAboutDonationActivity.this)
                     .setTitle("BDT Team")
                     .setMessage("You have already donat to this request ")
@@ -129,25 +120,19 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
                         }
                     }).show();
         else {
-            r();
+            AcceptDonation();
         }
 
     }
 
-    public void r()
+    public void AcceptDonation()
     {
-
-
-        md.addValueEventListener(new ValueEventListener() {
+        RequestBloodDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-
                 HashMap<String, Object> map = dataSnapshot.getValue(HashMap.class);
                 s = (int)map.get("numberOfUnites");
-
                 s--;
-
             }
 
             @Override
@@ -160,8 +145,7 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
                 chb5.isChecked() || chb6.isChecked() || chb7.isChecked() ||
                 chb8.isChecked() ||chb9.isChecked() ||chb10.isChecked() ||
                 chb11.isChecked() ||chb12.isChecked() ||chb13.isChecked() ||
-                chb14.isChecked() ||chb15.isChecked() )
-        {
+                chb14.isChecked() ||chb15.isChecked() ) {
 
             new AlertDialog.Builder(InformationAboutDonationActivity.this)
                     .setTitle("BDT Team")
@@ -170,7 +154,7 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-
+                            Toast.makeText(getApplicationContext(),"hello",Toast.LENGTH_LONG).show();
                         }
                     }).show();
         }
@@ -184,51 +168,52 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            Toast.makeText(getApplicationContext(), "thanks for donating   " , Toast.LENGTH_LONG).show();
-                            Intent newIntent = new Intent(InformationAboutDonationActivity.this, HomePageActivity.class);
-                            newIntent.putExtra("Mobile",MyNumber);
-                            newIntent.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
-                            startActivity(newIntent);
+
                         }
                     }).show();
-
-            if (TextUtils.isEmpty(RecordID)){
-                RecordID = myRef.push().getKey();
-                RequestBlood r = new RequestBlood();
-                r.setDate(date);
-                r.setMyMobile(my_num);
-                r.setRid(x);
-                myRef.child(RecordID).setValue(r);
-
-                Toast.makeText(getApplicationContext(), "Save  " + RecordID, Toast.LENGTH_LONG).show();
-            }
-
-            else
-            {
-                if (!TextUtils.isEmpty(RecordID)) {
-
-                    if (!TextUtils.isEmpty(my_num))
-                        myRef.child(RecordID).child("myMobile").setValue(my_num);
-
-                    if (!TextUtils.isEmpty(date))
-                        myRef.child(RecordID).child("date").setValue(date);
-
-                    if (!TextUtils.isEmpty(x))
-                        myRef.child(RecordID).child("rid").setValue(x);
-                }
-            }
-
-            md.addListenerForSingleValueEvent(new com.firebase.client.ValueEventListener() {
-                @Override
-                public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
-                    md.child("numberOfUnites").setValue(s);
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-
-                }
-            });
+            SaveInformation();
         }
     }
+
+    private void SaveInformation() {
+
+        if (TextUtils.isEmpty(RecordID)){
+            RecordID = DonationTableRef.push().getKey();
+            RequestBlood requestBlood = new RequestBlood();
+            requestBlood.setDate(date);
+            requestBlood.setMobileNumber(phoneNumber);
+            requestBlood.setRid(DonationRequestId);
+            DonationTableRef.child(RecordID).setValue(requestBlood);
+
+            Toast.makeText(getApplicationContext(), "Save  " + RecordID, Toast.LENGTH_LONG).show();
+        }
+
+        else
+        {
+            if (!TextUtils.isEmpty(RecordID)) {
+
+                if (!TextUtils.isEmpty(phoneNumber))
+                    DonationTableRef.child(RecordID).child("MyPhoneNumber").setValue(phoneNumber);
+
+                if (!TextUtils.isEmpty(date))
+                    DonationTableRef.child(RecordID).child("DonationDate").setValue(date);
+
+                if (!TextUtils.isEmpty(DonationRequestId))
+                    DonationTableRef.child(RecordID).child("RecordID").setValue(DonationRequestId);
+            }
+        }
+
+        RequestBloodDB.addListenerForSingleValueEvent(new com.firebase.client.ValueEventListener() {
+            @Override
+            public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
+                RequestBloodDB.child("numberOfUnites").setValue(s);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+    }
+
 }

@@ -43,7 +43,7 @@ public class DonationActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                     HashMap<String, Object> map = dataSnapshot1.getValue(HashMap.class);
-                    String MobileFromFireBase = (String) map.get("mobile");
+                    String MobileFromFireBase = (String) map.get("mobileNumber");
                     String bloodGroupFromFireBase = (String) map.get("bloodGroup");
                     int numberOfUnites = (int) map.get("numberOfUnites");
                     if (numberOfUnites > 0) {
@@ -52,8 +52,8 @@ public class DonationActivity extends AppCompatActivity {
                             switch (bloodGroup) {
                                 case "O-":
                                     requests = new Requests();
-                                    requests.setFuName((String) map.get("fuName"));
-                                    requests.setMobile((String) map.get("mobile"));
+                                    requests.setFullName((String) map.get("fullName"));
+                                    requests.setMobileNumber((String) map.get("mobileNumber"));
                                     requests.setHospitalName((String) map.get("hospitalName"));
                                     requests.setBloodGroup((String) map.get("bloodGroup"));
                                     requests.setNumberOfUnites((int) map.get("numberOfUnites"));
@@ -64,8 +64,8 @@ public class DonationActivity extends AppCompatActivity {
                                 case "O+":
                                     if (bloodGroupFromFireBase.contains("+")) {
                                         requests = new Requests();
-                                        requests.setFuName((String) map.get("fuName"));
-                                        requests.setMobile((String) map.get("mobile"));
+                                        requests.setFullName((String) map.get("fullName"));
+                                        requests.setMobileNumber((String) map.get("mobileNumber"));
                                         requests.setHospitalName((String) map.get("hospitalName"));
                                         requests.setBloodGroup((String) map.get("bloodGroup"));
                                         requests.setNumberOfUnites((int) map.get("numberOfUnites"));
@@ -77,8 +77,8 @@ public class DonationActivity extends AppCompatActivity {
                                 case "A-":
                                     if (bloodGroupFromFireBase.contains("A")) {
                                         requests = new Requests();
-                                        requests.setFuName((String) map.get("fuName"));
-                                        requests.setMobile((String) map.get("mobile"));
+                                        requests.setFullName((String) map.get("fullName"));
+                                        requests.setMobileNumber((String) map.get("mobileNumber"));
                                         requests.setHospitalName((String) map.get("hospitalName"));
                                         requests.setBloodGroup((String) map.get("bloodGroup"));
                                         requests.setNumberOfUnites((int) map.get("numberOfUnites"));
@@ -91,8 +91,8 @@ public class DonationActivity extends AppCompatActivity {
                                 case "A+":
                                     if (bloodGroupFromFireBase.equalsIgnoreCase("ab+") || bloodGroupFromFireBase.equalsIgnoreCase("a+")) {
                                         requests = new Requests();
-                                        requests.setFuName((String) map.get("fuName"));
-                                        requests.setMobile((String) map.get("mobile"));
+                                        requests.setFullName((String) map.get("fullName"));
+                                        requests.setMobileNumber((String) map.get("mobileNumber"));
                                         requests.setHospitalName((String) map.get("hospitalName"));
                                         requests.setBloodGroup((String) map.get("bloodGroup"));
                                         requests.setNumberOfUnites((int) map.get("numberOfUnites"));
@@ -105,8 +105,8 @@ public class DonationActivity extends AppCompatActivity {
                                 case "B-":
                                     if (bloodGroupFromFireBase.contains("B")) {
                                         requests = new Requests();
-                                        requests.setFuName((String) map.get("fuName"));
-                                        requests.setMobile((String) map.get("mobile"));
+                                        requests.setFullName((String) map.get("fullName"));
+                                        requests.setMobileNumber((String) map.get("mobileNumber"));
                                         requests.setHospitalName((String) map.get("hospitalName"));
                                         requests.setBloodGroup((String) map.get("bloodGroup"));
                                         requests.setNumberOfUnites((int) map.get("numberOfUnites"));
@@ -119,8 +119,8 @@ public class DonationActivity extends AppCompatActivity {
                                 case "B+":
                                     if (bloodGroupFromFireBase.equalsIgnoreCase("b+") || bloodGroupFromFireBase.equalsIgnoreCase("ab+")) {
                                         requests = new Requests();
-                                        requests.setFuName((String) map.get("fuName"));
-                                        requests.setMobile((String) map.get("mobile"));
+                                        requests.setFullName((String) map.get("fullName"));
+                                        requests.setMobileNumber((String) map.get("mobileNumber"));
                                         requests.setHospitalName((String) map.get("hospitalName"));
                                         requests.setBloodGroup((String) map.get("bloodGroup"));
                                         requests.setNumberOfUnites((int) map.get("numberOfUnites"));
@@ -132,8 +132,8 @@ public class DonationActivity extends AppCompatActivity {
                                 case "AB-":
                                     if (bloodGroupFromFireBase.contains("AB")) {
                                         requests = new Requests();
-                                        requests.setFuName((String) map.get("fuName"));
-                                        requests.setMobile((String) map.get("mobile"));
+                                        requests.setFullName((String) map.get("fullName"));
+                                        requests.setMobileNumber((String) map.get("mobileNumber"));
                                         requests.setHospitalName((String) map.get("hospitalName"));
                                         requests.setBloodGroup((String) map.get("bloodGroup"));
                                         requests.setNumberOfUnites((int) map.get("numberOfUnites"));
@@ -145,8 +145,8 @@ public class DonationActivity extends AppCompatActivity {
                                 case "AB+":
                                     if (bloodGroupFromFireBase.equalsIgnoreCase("ab+")) {
                                         requests = new Requests();
-                                        requests.setFuName((String) map.get("fuName"));
-                                        requests.setMobile((String) map.get("mobile"));
+                                        requests.setFullName((String) map.get("fullName"));
+                                        requests.setMobileNumber((String) map.get("mobileNumber"));
                                         requests.setHospitalName((String) map.get("hospitalName"));
                                         requests.setBloodGroup((String) map.get("bloodGroup"));
                                         requests.setNumberOfUnites((int) map.get("numberOfUnites"));

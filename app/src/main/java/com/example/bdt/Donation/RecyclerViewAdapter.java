@@ -18,19 +18,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.viewitem>{
-    TextView FullName,BloodGroup,Hospital,mobile,NumOfUnites;
+    TextView FullName,BloodGroup,Hospital, MobileNumber, NumberOfunits;
     Button DonationB;
 
     Context context;
     ArrayList<Requests> items;
-    String my_number;
+    String MyPhoneNumber;
     String currentDate;
 
     String id;
     public RecyclerViewAdapter(Context c, ArrayList<Requests> item, String mobile){
         context =c;
         items = item;
-        my_number=mobile;
+        MyPhoneNumber =mobile;
     }
 
 
@@ -45,9 +45,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             FullName = (TextView)itemView.findViewById(R.id.FullnameDonation);
             BloodGroup = (TextView)itemView.findViewById(R.id.BloodGroupDonation);
             Hospital = (TextView)itemView.findViewById(R.id.HospitalDonation);
-            mobile = (TextView)itemView.findViewById(R.id.mobileDonation);
+            MobileNumber = (TextView)itemView.findViewById(R.id.mobileDonation);
             DonationB = (Button)itemView.findViewById(R.id.Donations);
-            NumOfUnites = (TextView) itemView.findViewById(R.id.UnitesDonation);
+            NumberOfunits = (TextView) itemView.findViewById(R.id.UnitesDonation);
         }
     }
 
@@ -61,7 +61,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v) {
                 Intent x = new Intent(Parent.getContext(),InformationAboutDonationActivity.class);
-                x.putExtra("num",my_number);
+                x.putExtra("number", MyPhoneNumber);
                 String id = (String) v.getTag();
                 x.putExtra("donationRequestId",id);
                 context.startActivity(x);
@@ -73,11 +73,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(viewitem holder, int i) {
-        FullName.setText(items.get(i).getFuName());
-        mobile.setText(items.get(i).getMobile());
+        FullName.setText(items.get(i).getFullName());
+        MobileNumber.setText(items.get(i).getMobileNumber());
         Hospital.setText(items.get(i).getHospitalName());
         BloodGroup.setText(items.get(i).getBloodGroup());
-        NumOfUnites.setText(items.get(i).getNumberOfUnites()+"");
+        NumberOfunits.setText(items.get(i).getNumberOfUnites()+"");
         DonationB.setTag(items.get(i).getUserid()+"-"+items.get(i).getHospitalName());
 
 

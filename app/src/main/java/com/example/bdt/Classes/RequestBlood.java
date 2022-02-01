@@ -2,17 +2,17 @@ package com.example.bdt.Classes;
 
 public class RequestBlood {
 
-    private String MyMobile;
-    private String date;
+    private String MobileNumber;
+    private String Date;
     private String Rid;
 
 
     public RequestBlood() {
     }
 
-    public RequestBlood(String myMobile, String date, String rid) {
-        MyMobile = myMobile;
-        this.date = date;
+    public RequestBlood(String mobileNumber, String date, String rid) {
+        MobileNumber = mobileNumber;
+        this.Date = date;
         Rid = rid;
     }
 
@@ -26,20 +26,20 @@ public class RequestBlood {
 
 
 
-    public String getMyMobile() {
-        return MyMobile;
+    public String getMobileNumber() {
+        return MobileNumber;
     }
 
-    public void setMyMobile(String myMobile) {
-        MyMobile = myMobile;
+    public void setMobileNumber(String mobileNumber) {
+        MobileNumber = mobileNumber;
     }
 
     public String getDate() {
-        return date;
+        return Date;
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.Date = date;
     }
 
 }
