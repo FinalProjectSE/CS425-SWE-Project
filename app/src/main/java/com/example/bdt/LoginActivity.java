@@ -42,22 +42,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void Login(View v) {
-        informationFounded = checkYouInfo();
-        if (!informationFounded) {
-            new AlertDialog.Builder(LoginActivity.this)
-                    .setTitle("Blood Donation Team")
-                    .setMessage("Your number dose not exist , Sign up your information")
-                    .setCancelable(false)
-                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                        }
-                    }).show();
-        }
-
+        checkYouInfo();
     }
 
-    public boolean checkYouInfo() {
+    public void checkYouInfo() {
         userTableDataBase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -69,8 +57,12 @@ public class LoginActivity extends AppCompatActivity {
                     fullNameFromFirebase = map.get("firstName") + " " + map.get("lastName");
                     bloodFromFirebase = map.get("bloodGroup");
                     cityFromFirebase = map.get("city");
+                    if ((mobileNumberFromFirebase.equals(MobileNumber.getText().toString()))
+                            && passwordFromFirebase.equals(Password.getText().toString())) {
+                        informationFounded = true;
+                        break;
+                    }
 
-                    informationFounded = hasCorrectCredentials();
                 }
             }
 
@@ -78,13 +70,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) {
             }
         });
-        return informationFounded;
+        GoToHomePage();
+
     }
 
-    public boolean hasCorrectCredentials() {
-        if ((mobileNumberFromFirebase.equals(MobileNumber.getText().toString()))
-                && passwordFromFirebase.equals(Password.getText().toString())) {
-
+    public void GoToHomePage() {
+        if (informationFounded) {
             Intent x = new Intent(getApplicationContext(), HomePageActivity.class);
             x.putExtra("FullName", fullNameFromFirebase);
             x.putExtra("BloodGroup", bloodFromFirebase);
@@ -93,9 +84,17 @@ public class LoginActivity extends AppCompatActivity {
             x.putExtra("recordId", recordUseridFirebase);
             startActivity(x);
 
-            return true;
         } else {
-            return false;
+            new AlertDialog.Builder(LoginActivity.this)
+                    .setTitle("Blood Donation Team")
+                    .setMessage("Your number dose not exist , Sign up your information")
+                    .setCancelable(false)
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    }).show();
+
         }
     }
 }

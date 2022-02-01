@@ -58,6 +58,7 @@ public class HomePageActivity extends AppCompatActivity {
     public void Donation(View view) {
         Intent intent = new Intent(this, DonationActivity.class);
         intent.putExtra("Mobile", getIntent().getStringExtra("Mobile"));
+        intent.putExtra("FullName", getIntent().getStringExtra("FullName"));
         intent.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
         startActivity(intent);
     }

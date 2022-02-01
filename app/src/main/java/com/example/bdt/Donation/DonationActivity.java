@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.bdt.Classes.Requests;
@@ -22,7 +23,7 @@ public class DonationActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Requests requests = new Requests();
     ArrayList<Requests> requestss = new ArrayList<>();
-    String bloodGroup;
+    String bloodGroup, myFullName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class DonationActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         bloodGroup = getIntent().getStringExtra("BloodGroup");
+        myFullName = getIntent().getStringExtra("FullName");
 
         RequestBloodFireBase = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequestBlood");
 

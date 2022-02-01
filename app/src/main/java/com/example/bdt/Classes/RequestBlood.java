@@ -2,44 +2,44 @@ package com.example.bdt.Classes;
 
 public class RequestBlood {
 
-    private String MobileNumber;
-    private String Date;
-    private String Rid;
+    private String MyPhoneNumber;
+    private String DonationDate;
+    private String RecordId;
 
 
     public RequestBlood() {
     }
 
     public RequestBlood(String mobileNumber, String date, String rid) {
-        MobileNumber = mobileNumber;
-        this.Date = date;
-        Rid = rid;
+        MyPhoneNumber = mobileNumber;
+        this.DonationDate = date;
+        RecordId = rid;
     }
 
     public String getRid() {
-        return Rid;
+        return RecordId;
     }
 
     public void setRid(String rid) {
-        Rid = rid;
+        RecordId = rid;
     }
 
 
 
     public String getMobileNumber() {
-        return MobileNumber;
+        return MyPhoneNumber;
     }
 
     public void setMobileNumber(String mobileNumber) {
-        MobileNumber = mobileNumber;
+        MyPhoneNumber = mobileNumber;
     }
 
     public String getDate() {
-        return Date;
+        return DonationDate;
     }
 
     public void setDate(String date) {
-        this.Date = date;
+        this.DonationDate = date;
     }
 
 }
