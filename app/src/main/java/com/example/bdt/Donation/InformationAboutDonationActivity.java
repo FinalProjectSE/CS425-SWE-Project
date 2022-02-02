@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.example.bdt.Classes.RequestBlood;
+import com.example.bdt.HomePageActivity;
 import com.example.bdt.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -170,6 +171,11 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
+                            Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
+                            intent.putExtra("FullName", getIntent().getStringExtra("FullName"));
+                            intent.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
+                            intent.putExtra("Mobile", getIntent().getStringExtra("Mobile"));
+                            startActivity(intent);
                         }
                     }).show();
 
@@ -183,6 +189,11 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
                 DonationTableRef.child(RecordID).setValue(r);
 
                 Toast.makeText(getApplicationContext(), "Save  " + RecordID, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
+                intent.putExtra("FullName", getIntent().getStringExtra("FullName"));
+                intent.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
+                intent.putExtra("Mobile", getIntent().getStringExtra("Mobile"));
+                startActivity(intent);
             }
 
             else
@@ -199,6 +210,7 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
                         DonationTableRef.child(RecordID).child("RecordID").setValue(DonationRequestId);
 
                     Toast.makeText(getApplicationContext(), "Save  " + RecordID, Toast.LENGTH_LONG).show();
+                    
                 }
             }
 

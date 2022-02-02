@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bdt.Classes.Requests;
+import com.example.bdt.HomePageActivity;
 import com.example.bdt.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -142,7 +143,7 @@ public class RequestNotForUserActivity extends AppCompatActivity {
                     Map<String, String> map = dataSnapshot1.getValue(Map.class);
 
                     String mobileNumberFromFirebase = map.get("mobileNumber");
-                    if (mobileNumberFromFirebase.equalsIgnoreCase(YouMobile.getText().toString())) {
+                    if (YouMobile.getText().toString().equalsIgnoreCase(mobileNumberFromFirebase)) {
                         MobileNumberFounded =true;
                     }
                 }
@@ -212,6 +213,15 @@ public class RequestNotForUserActivity extends AppCompatActivity {
 
                         if (!TextUtils.isEmpty(numberofUnites.getText().toString()))
                             RequestBloodRef.child(recordID).child("numberOfUnites").setValue(Integer.parseInt(numberofUnites.getText().toString()));
+
+                        Toast.makeText(this, "Save  " + recordID, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(this, HomePageActivity.class);
+                        intent.putExtra("FullName", getIntent().getStringExtra("FullName"));
+                        intent.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
+                        intent.putExtra("Mobile", getIntent().getStringExtra("Mobile"));
+                        startActivity(intent);
+
+
                     }
 
                 }

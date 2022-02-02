@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.bdt.Classes.Requests;
+import com.example.bdt.HomePageActivity;
 import com.example.bdt.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -136,7 +138,6 @@ public class RequestForUserManual extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(recordID)) {
                     recordID = RequestBloodRef.push().getKey();
-
                     Requests re = new Requests();
                     re.setFullName(fullName.getText().toString() + " " + lastName.getText().toString());
                     re.setMobileNumber(Mobile.getText().toString());
@@ -146,6 +147,11 @@ public class RequestForUserManual extends AppCompatActivity {
                     RequestBloodRef.child(recordID).setValue(re);
 
                     Toast.makeText(this, "Save  " + recordID, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
+                    intent.putExtra("FullName", getIntent().getStringExtra("FullName"));
+                    intent.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
+                    intent.putExtra("Mobile", getIntent().getStringExtra("Mobile"));
+                    startActivity(intent);
 
                 } else {
 
@@ -167,20 +173,23 @@ public class RequestForUserManual extends AppCompatActivity {
                         if (!TextUtils.isEmpty(numberOfunits.getText().toString()))
                             RequestBloodRef.child(recordID).child("numberOfUnites").setValue(Integer.parseInt(numberOfunits.getText().toString()));
 
+                        Toast.makeText(this, "Save  " + recordID, Toast.LENGTH_LONG).show();
+
+
                     }
 
                 }
             }
         }
 
-        recordID2 = RequesterTableRef.push().getKey();
+
 
         HospitalTableDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if (TextUtils.isEmpty(recordID2)) {
-
+                    recordID2 = RequesterTableRef.push().getKey();
                     Requests req = new Requests();
 
                     req.setMobileNumber(Mobile.getText().toString());

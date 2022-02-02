@@ -50,7 +50,7 @@ public class DonationActivity extends AppCompatActivity {
                     int numberOfUnites = (int) map.get("numberOfUnites");
                     if (numberOfUnites > 0) {
 
-                        if (!(MobileFromFireBase.equals(getIntent().getStringExtra("Mobile")))) {
+                        if (!(getIntent().getStringExtra("Mobile").equals(MobileFromFireBase))) {
                             switch (bloodGroup) {
                                 case "O-":
                                     requests = new Requests();
