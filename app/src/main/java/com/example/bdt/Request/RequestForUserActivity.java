@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bdt.Classes.Requests;
+import com.example.bdt.HomePageActivity;
 import com.example.bdt.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -172,6 +174,12 @@ public class RequestForUserActivity extends AppCompatActivity {
                     RequestBloodRef.child(recordId).setValue(re);
 
                     Toast.makeText(this, "Save  " + recordId, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(this, HomePageActivity.class);
+                    intent.putExtra("FullName", getIntent().getStringExtra("FullName"));
+                    intent.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
+                    intent.putExtra("recordId", getIntent().getStringExtra("recordId"));
+                    intent.putExtra("Mobile", getIntent().getStringExtra("Mobile"));
+                    startActivity(intent);
 
                 } else {
 
@@ -198,43 +206,6 @@ public class RequestForUserActivity extends AppCompatActivity {
 
                 }
 
-            } else {
-                if (TextUtils.isEmpty(recordId)) {
-                    recordId = RequesterTableRef.push().getKey();
-
-                    Requests re = new Requests();
-                    re.setFullName(Name.getText().toString());
-                    re.setMobileNumber(MobileNumber.getText().toString());
-                    re.setBloodGroup(Bloods.getSelectedItem().toString());
-                    re.setHospitalName(HospitalName.getSelectedItem().toString());
-                    re.setNumberOfUnites(Integer.parseInt(numberOfUnites.getText().toString()));
-                    RequestBloodRef.child(recordId).setValue(re);
-
-                    Toast.makeText(this, "Save  " + recordId, Toast.LENGTH_LONG).show();
-
-                } else {
-
-                    if (!TextUtils.isEmpty(recordId)) {
-
-                        if (!TextUtils.isEmpty(Name.getText().toString()))
-                            RequestBloodRef.child(recordId).child("fuName").setValue(Name.getText().toString());
-
-                        if (!TextUtils.isEmpty(MobileNumber.getText().toString()))
-                            RequestBloodRef.child(recordId).child("Mobile").setValue(MobileNumber.getText().toString());
-
-                        if (!TextUtils.isEmpty(Bloods.getSelectedItem().toString()))
-                            RequestBloodRef.child(recordId).child("BloodGroup").setValue(Bloods.getSelectedItem().toString());
-
-
-                        if (!TextUtils.isEmpty(HospitalName.getSelectedItem().toString()))
-                            RequestBloodRef.child(recordId).child("HospitalName").setValue(HospitalName.getSelectedItem().toString());
-
-                        if (!TextUtils.isEmpty(numberOfUnites.getText().toString()))
-                            RequestBloodRef.child(recordId).child("numberOfUnites").setValue(Integer.parseInt(numberOfUnites.getText().toString()));
-
-                    }
-
-                }
             }
         }
         recordid2 = RequesterTableRef.push().getKey();

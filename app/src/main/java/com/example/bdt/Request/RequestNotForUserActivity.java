@@ -218,6 +218,7 @@ public class RequestNotForUserActivity extends AppCompatActivity {
                         Intent intent = new Intent(this, HomePageActivity.class);
                         intent.putExtra("FullName", getIntent().getStringExtra("FullName"));
                         intent.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
+                        intent.putExtra("recordId", getIntent().getStringExtra("recordId"));
                         intent.putExtra("Mobile", getIntent().getStringExtra("Mobile"));
                         startActivity(intent);
 

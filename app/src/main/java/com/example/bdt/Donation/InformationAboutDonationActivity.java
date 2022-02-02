@@ -192,6 +192,7 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
                 intent.putExtra("FullName", getIntent().getStringExtra("FullName"));
                 intent.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
+                intent.putExtra("recordId", getIntent().getStringExtra("recordId"));
                 intent.putExtra("Mobile", getIntent().getStringExtra("Mobile"));
                 startActivity(intent);
             }
@@ -210,7 +211,7 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
                         DonationTableRef.child(RecordID).child("RecordID").setValue(DonationRequestId);
 
                     Toast.makeText(getApplicationContext(), "Save  " + RecordID, Toast.LENGTH_LONG).show();
-                    
+
                 }
             }
 

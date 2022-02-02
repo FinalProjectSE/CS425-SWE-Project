@@ -49,6 +49,7 @@ public class HomePageActivity extends AppCompatActivity {
     public void Request(View view) {
         Intent intent = new Intent(this, RequestActivity.class);
         intent.putExtra("FullName", getIntent().getStringExtra("FullName"));
+        intent.putExtra("recordId", getIntent().getStringExtra("recordId"));
         intent.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
         intent.putExtra("Mobile", getIntent().getStringExtra("Mobile"));
         startActivity(intent);
@@ -58,6 +59,7 @@ public class HomePageActivity extends AppCompatActivity {
     public void Donation(View view) {
         Intent intent = new Intent(this, DonationActivity.class);
         intent.putExtra("Mobile", getIntent().getStringExtra("Mobile"));
+        intent.putExtra("recordId", getIntent().getStringExtra("recordId"));
         intent.putExtra("FullName", getIntent().getStringExtra("FullName"));
         intent.putExtra("BloodGroup", getIntent().getStringExtra("BloodGroup"));
         startActivity(intent);
