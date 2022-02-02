@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                     if ((mobileNumberFromFirebase.equals(MobileNumber.getText().toString()))
                             && passwordFromFirebase.equals(Password.getText().toString())) {
                         informationFounded = true;
+                        GoToHomePage();
                         break;
                     }
 
