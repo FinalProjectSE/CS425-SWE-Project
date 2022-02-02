@@ -13,13 +13,16 @@ import android.widget.Toast;
 
 import com.example.bdt.Classes.RequestBlood;
 import com.example.bdt.R;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 public class InformationAboutDonationActivity extends AppCompatActivity {
 
@@ -80,6 +83,28 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
         RequestBloodDB = new Firebase("https://finalprojectmiu-default-rtdb.firebaseio.com/RequestBlood/" + DonationId);
         DonationTableRef = FirebaseDatabase.getInstance().getReference("DonationTable");
         phoneNumber = getIntent().getStringExtra("number");
+
+        DonationTableDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    Map<String, String> map = dataSnapshot1.getValue(Map.class);
+                    String rid = map.get("RecordID");
+                    String Number = map.get("MyPhoneNumber");
+
+                    if(DonationRequestId.equalsIgnoreCase(rid)) {
+                        if (phoneNumber.equalsIgnoreCase(Number)) {
+                            recordFounded = true;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
     public void ConfirmInfo(View view) {
@@ -96,7 +121,6 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
         else {
             SaveInformation();
         }
-
     }
 
     public void SaveInformation()
@@ -133,8 +157,6 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            //Intent x=new Intent(FirstActivity.this,DonationActivity.class);
-                            //startActivity(x);
                         }
                     }).show();
         }
@@ -174,7 +196,7 @@ public class InformationAboutDonationActivity extends AppCompatActivity {
                         DonationTableRef.child(RecordID).child("DonationDate").setValue(date);
 
                     if (!TextUtils.isEmpty(DonationId))
-                        DonationTableRef.child(RecordID).child("RecordID").setValue(DonationId);
+                        DonationTableRef.child(RecordID).child("RecordID").setValue(DonationRequestId);
 
                     Toast.makeText(getApplicationContext(), "Save  " + RecordID, Toast.LENGTH_LONG).show();
                 }
